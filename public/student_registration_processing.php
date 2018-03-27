@@ -35,6 +35,8 @@
 	# Accessing connection variable form connect.php
 	global $conn;
 
+	$test;
+
 
 	# Command to insert into table student_info
 	$sql = "INSERT INTO student_info ( ";
