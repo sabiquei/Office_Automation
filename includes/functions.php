@@ -7,6 +7,4 @@ function user_input_validation ($data) {
 	return $data;
 
 }
-
-$variable = 10;
 ?>
