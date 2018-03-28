@@ -1,4 +1,4 @@
-<?php require_once("../includes/connect.php");
+yc<?php require_once("../includes/connect.php");
 	  require_once("../includes/functions.php");	?>
 
 <?php
@@ -40,7 +40,31 @@
 
 	# Command to insert into table student_info
 	$sql = "INSERT INTO student_info ( ";
-	$sql.= "name";
+	
+	$sql.= "name,";
+	$sql.= "dob,";
+	$sql.= "gender,";
+	$sql.= "father,";
+	$sql.= "f_occupation,";
+	$sql.= "religion,";
+	$sql.= "caste,";
+	$sql.= "category,";
+	$sql.= "blood,";
+	$sql.= "aadhar,";
+	$sql.= "housename,";
+	$sql.= "place,";
+	$sql.= "postoffice,";
+	$sql.= "district,";
+	$sql.= "mobile,";
+	$sql.= "email,";
+	$sql.= "yoa,";
+	$sql.= "admission_no,";
+	$sql.= "reg_no,";
+	$sql.= "course,";
+	$sql.= "semester,";
+	$sql.= "userid,";
+	$sql.= "password ";
+
 	$sql.= ") VALUES ( ";
 	$sql.= " '{$name}' , ";
 	$sql.= " '{$dob}' , ";
@@ -66,8 +90,7 @@
 	$sql.= " '{$course}' , ";
 	$sql.= " '{$semester}' , ";
 	$sql.= " '{$userid}' , ";
-	$sql.= " '{$password}' , ";
-	$sql.= " '{$repeat_password}' , ";
+	$sql.= " '{$password}' ";
 	$sql.= ")";
 
 	if (mysqli_query($conn, $sql)) {
