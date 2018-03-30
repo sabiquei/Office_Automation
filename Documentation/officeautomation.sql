@@ -112,3 +112,8 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+# Insert sample info
+
+INSERT INTO `student_info` (`name`, `dob`, `sex`, `fname`, `f_occupation`, `mname`, `m_occupation`, `religion`, `caste`, `category`, `bgroup`, `aadhar`, `hname`, `plc`, `post`, `district`, `mob`, `email`, `yoa`, `admno`, `register`, `course`, `semester`, `UserID`, `psw`) VALUES ('sabique', '1996/11/20', '0', 'father', 'job', 'mother', 'job', 'religion', 'caste', '1', 'O+', '12345678', 'hname', 'plc', 'post', 'kozhikode', '12345678', 'abcd@abcf', '2014', '14420028', '14420028', 'cs', '8', 'sabique', 'password');
