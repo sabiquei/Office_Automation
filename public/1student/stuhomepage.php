@@ -5,7 +5,7 @@
 
       global $conn;
       // User ID
-      $userid = "ashraya";
+      $userid = "sabique";
 
       $sql = "SELECT name,admno,course,semester FROM student_info WHERE UserID = '{$userid}'";
 
