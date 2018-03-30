@@ -1,0 +1,9 @@
+# Request Automation
+
+1.	Student information are stored in the student_info table.
+2.	Student submits a request through UI.
+3.	The request information is stored in request table.
+
+# Format of Request Table
+																					#tutuor/HOD/office
+Serial No.	Category	Subject		Body	Student_id	Tutuor_id	HOD_id 		Status	Level				Rejection Reason	Comments
