@@ -1,6 +1,29 @@
+<?php require_once("../../includes/connect.php");
+      require_once("../../includes/functions.php"); ?>
+
+<?php 
+
+      global $conn;
+      // User ID
+      $userid = "ashraya";
+
+      $sql = "SELECT name,admno,course,semester FROM student_info WHERE UserID = '{$userid}'";
+
+      #Executing query
+      $result = mysqli_query($conn, $sql);
+
+      if (mysqli_num_rows($result) > 0) {
+      // output data of each row
+        $row = mysqli_fetch_assoc($result);
+      } else {
+          echo "0 results";
+      }
+
+?>
+
 <!DOCTYPE html>
 <html>
-<title>stuhomepage.CSS</title>
+<title>Student Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
@@ -21,7 +44,7 @@
 <div class="w3-teal">
   <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
-    <h1 align="center">Welcome Name</h1>
+    <h1 align="center">Welcome <?php global $row; print($row["name"]); ?> </h1>
   </div>
 </div>
 
@@ -30,9 +53,9 @@
 
 
 <div class="w3-container">
-<p>Name :</p><br>
-<p>Student ID :</p><br>
-<p>Semester , Dept :</p><br>
+<p>Name : <?php global $row; print($row["name"]); ?></p><br>
+<p>Student ID : <?php global $row; print($row["admno"]); ?> </p><br>
+<p>Semester , Dept : <?php global $row; print($row["semester"]." , ". $row["course"]); ?> </p><br>
 
 </div>
 <div class="w3-button w3-teal w3-block w3-round-xxlarge" align="center" style="width:50% padding:100%"><a href="req.html">Submit a Request </a><br>

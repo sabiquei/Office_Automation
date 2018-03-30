@@ -1,6 +1,7 @@
 <?php require_once("../../includes/connect.php");
 	  require_once("../../includes/functions.php");	?>
 
+
 <?php
 
 	# Retreving data from form
@@ -44,29 +45,29 @@
 	
 	$sql.= "name,";
 	$sql.= "dob,";
-	$sql.= "gender,";
-	$sql.= "father,";
+	$sql.= "sex,";
+	$sql.= "fname,";
 	$sql.= "f_occupation,";
-	$sql.= "mother,";
+	$sql.= "mname,";
 	$sql.= "m_occupation,";
 	$sql.= "religion,";
 	$sql.= "caste,";
 	$sql.= "category,";
-	$sql.= "blood,";
+	$sql.= "bgroup,";
 	$sql.= "aadhar,";
-	$sql.= "housename,";
-	$sql.= "place,";
-	$sql.= "postoffice,";
+	$sql.= "hname,";
+	$sql.= "plc,";
+	$sql.= "post,";
 	$sql.= "district,";
-	$sql.= "mobile,";
+	$sql.= "mob,";
 	$sql.= "email,";
 	$sql.= "yoa,";
-	$sql.= "admission_no,";
-	$sql.= "reg_no,";
+	$sql.= "admno,";
+	$sql.= "register,";
 	$sql.= "course,";
 	$sql.= "semester,";
-	$sql.= "userid,";
-	$sql.= "password ";
+	$sql.= "UserID,";
+	$sql.= "psw ";
 
 	$sql.= ") VALUES ( ";
 
