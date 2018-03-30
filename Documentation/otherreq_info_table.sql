@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 30, 2018 at 06:44 AM
+-- Generation Time: Mar 30, 2018 at 07:17 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.1.7
 
@@ -35,7 +35,9 @@ CREATE TABLE `otherreq_info table` (
   `subject` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
   `body` varchar(500) NOT NULL,
-  `levels` int(3) NOT NULL
+  `levels` int(3) NOT NULL,
+  `tutor_id` int(20) NOT NULL,
+  `hod_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 COMMIT;
 
