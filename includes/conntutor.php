@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "root";
-$dbname = "officeautomation";
+$dbname = "Project";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
