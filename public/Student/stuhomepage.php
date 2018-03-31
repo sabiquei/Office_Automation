@@ -1,19 +1,24 @@
-<?php require_once("../../includes/connect.php");
-      require_once("../../includes/functions.php"); ?>
+<?php 
+    require_once("../../includes/session.php");
+    ob_start(); 
+    require_once("../../includes/connect.php");
+    require_once("../../includes/functions.php"); 
+    confirm_logged_in();
+?>
 
 <?php 
 
       global $conn;
-      // User ID
-      $userid = "sabique";
+      # User ID
+      $userid = $_SESSION["user_id"];
 
-      $sql = "SELECT name,admno,course,semester FROM student_info WHERE UserID = '{$userid}'";
+      $sql = "SELECT name,admission_no,course,semester FROM student_info WHERE user_id = '{$userid}'";
 
-      #Executing query
+      # Executing query
       $result = mysqli_query($conn, $sql);
 
       if (mysqli_num_rows($result) > 0) {
-      // output data of each row
+      # output data of each row
         $row = mysqli_fetch_assoc($result);
       } else {
           echo "0 results";
@@ -28,16 +33,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large"
-  onclick="w3_close()">Close &times;</button>
-  <a href="#" class="w3-bar-item w3-button">Inbox</a>
-  <a href="stuhomepage.html" class="w3-bar-item w3-button">Home</a>
-  <a href="profile.html" class="w3-bar-item w3-button">Profile</a>
-  <a href="marklist.html" class="w3-bar-item w3-button">Marklist</a>
-  <a href="tuthod.html" class="w3-bar-item w3-button">Tutor & HOD</a>
-  <a href="log.html" class="w3-bar-item w3-button">Logout</a>
-</div>
+<?php require_once("../../includes/layouts/sidebar.php"); ?>
 
 <div id="main">
 
@@ -54,7 +50,7 @@
 
 <div class="w3-container">
 <p>Name : <?php global $row; print($row["name"]); ?></p><br>
-<p>Student ID : <?php global $row; print($row["admno"]); ?> </p><br>
+<p>Student ID : <?php global $row; print($row["admission_no"]); ?> </p><br>
 <p>Semester , Dept : <?php global $row; print($row["semester"]." , ". $row["course"]); ?> </p><br>
 
 </div>
@@ -82,3 +78,7 @@ function w3_close() {
 
 </body>
 </html>
+
+<?php ob_end_flush(); 
+      mysqli_close($conn);
+?>

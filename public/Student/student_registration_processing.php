@@ -1,6 +1,9 @@
-<?php require_once("../../includes/connect.php");
-	  require_once("../../includes/functions.php");	?>
-
+<?php
+	require_once("../../includes/session.php"); 
+	ob_start();
+	require_once("../../includes/connect.php");
+	require_once("../../includes/functions.php");	
+?>
 
 <?php
 
@@ -14,8 +17,6 @@
 	$f_occupation 	= user_input_validation($_REQUEST["f_occupation"]);
 	$mother 		= user_input_validation($_REQUEST["mname"]);
 	$m_occupation 	= user_input_validation($_REQUEST["m_occupation"]);
-	$religion 		= user_input_validation($_REQUEST["religion"]);
-	$caste 			= user_input_validation($_REQUEST["caste"]);
 	$category 		= user_input_validation($_REQUEST["category"]);
 	$blood 			= user_input_validation($_REQUEST["bgroup"]);
 	$aadhar 		= user_input_validation($_REQUEST["aadhar"]);
@@ -35,7 +36,7 @@
 	$repeat_password= user_input_validation($_REQUEST["psw-repeat"]);
 
 	# Convert password into hash value.
-	$password = md5($password);
+	$password = convert_password($password);
 
 	# Accessing connection variable form connect.php
 	global $conn;
@@ -46,28 +47,26 @@
 	$sql.= "name,";
 	$sql.= "dob,";
 	$sql.= "sex,";
-	$sql.= "fname,";
+	$sql.= "father,";
 	$sql.= "f_occupation,";
-	$sql.= "mname,";
+	$sql.= "mother,";
 	$sql.= "m_occupation,";
-	$sql.= "religion,";
-	$sql.= "caste,";
 	$sql.= "category,";
-	$sql.= "bgroup,";
+	$sql.= "blood_group,";
 	$sql.= "aadhar,";
-	$sql.= "hname,";
-	$sql.= "plc,";
-	$sql.= "post,";
+	$sql.= "house_name,";
+	$sql.= "place,";
+	$sql.= "post_office,";
 	$sql.= "district,";
-	$sql.= "mob,";
+	$sql.= "mobile,";
 	$sql.= "email,";
 	$sql.= "yoa,";
-	$sql.= "admno,";
-	$sql.= "register,";
+	$sql.= "admission_no,";
+	$sql.= "register_no,";
 	$sql.= "course,";
 	$sql.= "semester,";
-	$sql.= "UserID,";
-	$sql.= "psw ";
+	$sql.= "user_id ,";
+	$sql.= "password ";
 
 	$sql.= ") VALUES ( ";
 
@@ -78,8 +77,6 @@
 	$sql.= " '{$f_occupation}' , ";
 	$sql.= " '{$mother}' , ";
 	$sql.= " '{$m_occupation}' , ";
-	$sql.= " '{$religion}' , ";
-	$sql.= " '{$caste}' , ";
 	$sql.= " '{$category}' , ";
 	$sql.= " '{$blood}' , ";
 	$sql.= " '{$aadhar}' , ";
@@ -96,14 +93,20 @@
 	$sql.= " '{$semester}' , ";
 	$sql.= " '{$userid}' , ";
 	$sql.= " '{$password}' ";
+
 	$sql.= ")";
 
 	#Executing query
 	if (mysqli_query($conn, $sql)) {
 	    echo "New record created successfully";
+	    	redirect_to("login.php");
 	} else {
 	    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
 
 	mysqli_close($conn);
+?>
+
+<?php ob_end_flush(); 
+      mysqli_close($conn);
 ?>

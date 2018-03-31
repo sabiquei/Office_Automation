@@ -1,13 +1,18 @@
-<?php require_once("../../includes/connect.php");
-      require_once("../../includes/functions.php"); ?>
+<?php
+      require_once("../../includes/session.php"); 
+      ob_start();
+      require_once("../../includes/connect.php");
+      require_once("../../includes/functions.php");
+      confirm_logged_in();
+?>
 
 <?php 
 
       global $conn;
       // User ID
-      $userid = "sabique";
+      $userid = $_SESSION["user_id"];
 
-      $sql = "SELECT name,admno,course,semester FROM student_info WHERE UserID = '{$userid}'";
+      $sql = "SELECT name,admission_no,course,semester,house_name,mobile,email FROM student_info WHERE user_id = '{$userid}'";
 
       #Executing query
       $result = mysqli_query($conn, $sql);
@@ -19,23 +24,15 @@
           echo "0 results";
       }
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
 <title>Studentprofile.css</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large"
-  onclick="w3_close()">Close &times;</button>
-  <a href="#" class="w3-bar-item w3-button">Inbox</a>
-  <a href="stuhomepage.html" class="w3-bar-item w3-button">Home</a>
-  <a href="profile.html" class="w3-bar-item w3-button">Profile</a>
-  <a href="marklist.html" class="w3-bar-item w3-button">Marklist</a>
-  <a href="tuthod.html" class="w3-bar-item w3-button">Tutor & HOD</a>
-  <a href="log.html" class="w3-bar-item w3-button">Logout</a>
-</div>
+<?php require_once("../../includes/layouts/sidebar.php"); ?>
 
 <div id="main">
 
@@ -43,7 +40,7 @@
   <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
     <h1 align="center">PROFILE</h1>
-	<h2 align="left">WELCOME NAME</h2>
+	<h2 align="left">Welcome <?php global $row; print($row["name"]); ?> </h2>
   </div>
 </div>
 
@@ -53,18 +50,18 @@
 
 <div class="w3-container">
 <p>Name :<?php global $row; print($row["name"]); ?></p><br>
-<p>Student ID :<?php global $row; print($row["admno"]); ?></p><br>
+<p>Student ID :<?php global $row; print($row["admission_no"]); ?></p><br>
 <p>Semester :<?php global $row; print($row["semester"]); ?></p><br>
 <p>Dept:<?php global $row; print($row["course"]); ?></p><br>
-<p>Address :<?php global $row; print($row["hname"]); ?></p><br>
-<p>Phone Number:<?php global $row; print($row["mob"]); ?></p><br>
+<p>Address :<?php global $row; print($row["house_name"]); ?></p><br>
+<p>Phone Number:<?php global $row; print($row["mobile"]); ?></p><br>
 <p>Email id :<?php global $row; print($row["email"]); ?></p><br>
 </div>
 
 </div>
 <div class="w3-button w3-teal w3-block w3-round-xxlarge" align="center" style="width:50% padding:50%">
   
-  <a href="update.html">UPDATE PROFILE </a><br>
+  <a href="update.php">UPDATE PROFILE </a><br>
    
 </div>
 <br>
@@ -85,3 +82,7 @@ function w3_close() {
 
 </body>
 </html>
+
+<?php ob_end_flush(); 
+      mysqli_close($conn);
+?>
