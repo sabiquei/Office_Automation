@@ -1,3 +1,10 @@
+<?php 
+    require_once("../../includes/session.php");
+    ob_start();
+    require_once("../../includes/connect.php");
+    require_once("../../includes/functions.php");   
+?>
+
 <!DOCTYPE html>
 <html>
 <style>
@@ -132,9 +139,123 @@ button:hover {
     }
 }
 </style>
+
+<?php
+    require_once("../../includes/session.php"); 
+    ob_start();
+    require_once("../../includes/connect.php");
+    require_once("../../includes/functions.php");   
+?>
+
+<?php
+    if(isset($_REQUEST["submit"])) {
+        # Retreving data from form
+        # user_input_validation() is used to check whether user input is safe or not
+
+        $name           = user_input_validation($_REQUEST["name"]);
+        $dob            = user_input_validation($_REQUEST["dob"]);
+        $gender         = user_input_validation($_REQUEST["sex"]);
+        $father         = user_input_validation($_REQUEST["fname"]);
+        $f_occupation   = user_input_validation($_REQUEST["f_occupation"]);
+        $mother         = user_input_validation($_REQUEST["mname"]);
+        $m_occupation   = user_input_validation($_REQUEST["m_occupation"]);
+        $category       = user_input_validation($_REQUEST["category"]);
+        $blood          = user_input_validation($_REQUEST["bgroup"]);
+        $aadhar         = user_input_validation($_REQUEST["aadhar"]);
+        $housename      = user_input_validation($_REQUEST["hname"]);
+        $place          = user_input_validation($_REQUEST["plc"]);
+        $postoffice     = user_input_validation($_REQUEST["post"]);
+        $district       = user_input_validation($_REQUEST["district"]);
+        $mobile         = user_input_validation($_REQUEST["mob"]);
+        $email          = user_input_validation($_REQUEST["email"]);
+        $yoa            = user_input_validation($_REQUEST["yoa"]); #Year of Admission
+        $admission_no   = user_input_validation($_REQUEST["admno"]);
+        $reg_no         = user_input_validation($_REQUEST["register"]);
+        $course         = user_input_validation($_REQUEST["course"]);
+        $semester       = user_input_validation($_REQUEST["smstr"]);
+        $userid         = user_input_validation($_REQUEST["UserID"]);
+        $password       = user_input_validation($_REQUEST["psw"]);
+        #$repeat_password= user_input_validation($_REQUEST["psw-repeat"]);
+
+        # Convert password into hash value.
+        $password = convert_password($password);
+
+        # Accessing connection variable form connect.php
+        global $conn;
+
+        // Checking if user id already exists in a database
+       if(check_existing_username($userid)){    // 1 means user id is not taken
+            # Command to insert into table student_info
+            $sql = "INSERT INTO student_info ( ";
+            
+            $sql.= "name,";
+            $sql.= "dob,";
+            $sql.= "sex,";
+            $sql.= "father,";
+            $sql.= "f_occupation,";
+            $sql.= "mother,";
+            $sql.= "m_occupation,";
+            $sql.= "category,";
+            $sql.= "blood_group,";
+            $sql.= "aadhar,";
+            $sql.= "house_name,";
+            $sql.= "place,";
+            $sql.= "post_office,";
+            $sql.= "district,";
+            $sql.= "mobile,";
+            $sql.= "email,";
+            $sql.= "yoa,";
+            $sql.= "admission_no,";
+            $sql.= "register_no,";
+            $sql.= "course,";
+            $sql.= "semester,";
+            $sql.= "user_id ,";
+            $sql.= "password ";
+
+            $sql.= ") VALUES ( ";
+
+            $sql.= " '{$name}' , ";
+            $sql.= " '{$dob}' , ";
+            $sql.= " '{$gender}' , ";
+            $sql.= " '{$father}' , ";
+            $sql.= " '{$f_occupation}' , ";
+            $sql.= " '{$mother}' , ";
+            $sql.= " '{$m_occupation}' , ";
+            $sql.= " '{$category}' , ";
+            $sql.= " '{$blood}' , ";
+            $sql.= " '{$aadhar}' , ";
+            $sql.= " '{$housename}' , ";
+            $sql.= " '{$place}' , ";
+            $sql.= " '{$postoffice}' , ";
+            $sql.= " '{$district}' , ";
+            $sql.= " '{$mobile}' , ";
+            $sql.= " '{$email}' , ";
+            $sql.= " '{$yoa}' , ";
+            $sql.= " '{$admission_no}' , ";
+            $sql.= " '{$reg_no}' , ";
+            $sql.= " '{$course}' , ";
+            $sql.= " '{$semester}' , ";
+            $sql.= " '{$userid}' , ";
+            $sql.= " '{$password}' ";
+
+            $sql.= ")";
+
+            #Executing query
+            if (mysqli_query($conn, $sql)) {
+                echo "New record created successfully";
+                    redirect_to("login.php");
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
+       } 
+       print "user id already exists";
+        mysqli_close($conn);
+    }
+?>
+
 <body>
 
-<form action="student_registration_processing.php" style="border:1px solid #ccc">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" style="border:1px solid #ccc" method = "post">
   <div class="container"align="left">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
@@ -217,11 +338,26 @@ button:hover {
     <input type="text" placeholder="Class Register No" name="clsregister" required>
 	<br><br> -->
 
-	<label for="course"><b>Course</b></label>
-    <input type="text" placeholder="Course" name="course" required>
-	<br><br>
+	<label for="course"><b>Course</b></label><br>
+    <select name="course">
+      <option value="415">Computer Science and Engineering</option>
+      <option value="416">Information and Technology</option>
+      <option value="403">Mechanical Engineering</option>
+      <option value="401">Civil Engineering</option>
+      <option value="412">Electronics and Communication Engineering</option>
+      <option value="411">Electrical and Electronics Engineering</option>
+    </select><br><br>
 	<label for="smstr"><b>Semester</b></label>
-    <input type="text" placeholder="Semster" name="smstr" required>
+    <select name="semester">
+      <option value="S8">S8</option>
+      <option value="S7">S7</option>
+      <option value="S6">S6</option>
+      <option value="S5">S5</option>
+      <option value="S4">S4</option>
+      <option value="S3">S3</option>
+      <option value="S2">S2</option>
+      <option value="S1">S1</option>
+    </select><br><br>
 	<br><br>
 
     <!--
@@ -270,17 +406,18 @@ button:hover {
 	
 	<br><br>
 	<b>DECLARATION</b>
-	<input type="checkbox" name="declrtn" >I do hereby declare that the information is correct and complete to the best of my knowledge and belief<br><br>
+	<input type="checkbox" name="declrtn" required>I do hereby declare that the information is correct and complete to the best of my knowledge and belief<br><br>
     
-    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+    <!-- <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p> -->
 	<br><br>
     <div class="clearfix" align="center">
-      <button type="button" class="cancelbtn" align="center">Cancel</button><br><br>
-      <button type="submit" class="signupbtn" align="center">Sign Up</button>
+      <button type="submit" class="signupbtn" align="center" name ="submit">Sign Up</button ><br><br>
+      <button type="reset" class="cancelbtn" align="center">Reset</button><br>
     </div>
   </div>
 </form>
 
 </body>
 </html>
-
+<?php ob_end_flush(); 
+?>

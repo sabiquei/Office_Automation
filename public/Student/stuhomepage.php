@@ -40,7 +40,7 @@
 <div class="w3-teal">
   <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
-    <h1 align="center">Welcome <?php global $row; print($row["name"]); ?> </h1>
+    <h1 align="center">Welcome <?php print($_SESSION["name"]); ?> </h1>
   </div>
 </div>
 
@@ -54,7 +54,7 @@
 <p>Semester , Dept : <?php global $row; print($row["semester"]." , ". $row["course"]); ?> </p><br>
 
 </div>
-<div class="w3-button w3-teal w3-block w3-round-xxlarge" align="center" style="width:50% padding:100%"><a href="req.html">Submit a Request </a><br>
+<div class="w3-button w3-teal w3-block w3-round-xxlarge" align="center" style="width:50% padding:100%"><a href="request.php">Submit a Request </a><br>
    
 </div>
 <br>

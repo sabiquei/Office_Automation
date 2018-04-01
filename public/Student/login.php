@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Student Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -103,7 +104,7 @@ span.psw {
     <button type="button" class="cancelbtn" align="center">Cancel</button><br><br>
   -->
      <!-- <a href="#">Forgot password?</a><br><br> -->
-	<a href="studentreg.html">Create a new account</a>
+	<a href="studentregistration.php">Create a new account</a>
   </div>
 </form>
 
@@ -113,7 +114,7 @@ span.psw {
         $password = user_input_validation($_POST["password"]);
         $password = convert_password($password);
 
-        $sql = "SELECT user_id,password from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
+        $sql = "SELECT password,name from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
 
         #Executing query
         $result = mysqli_query($conn, $sql);
@@ -123,6 +124,7 @@ span.psw {
 
           if($password == $row["password"]) {
             $_SESSION["user_id"] = $userid;
+            $_SESSION["name"] = $row["name"];
             redirect_to("stuhomepage.php");
           } else {
             print " Invalid Password <br>";

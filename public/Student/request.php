@@ -1,6 +1,12 @@
+<?php require_once("../../includes/session.php");
+    ob_start(); 
+    require_once("../../includes/connect.php");
+    require_once("../../includes/functions.php"); 
+    confirm_logged_in();
+?>
 <!DOCTYPE html>
 <html>
-<title>UPDATEPROFILE.CSS</title>
+<title>Requests</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
@@ -46,16 +52,8 @@ input[type=text]:focus, input[type=password]:focus {
 
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large"
-  onclick="w3_close()">Close &times;</button>
- <a href="#" class="w3-bar-item w3-button">Inbox</a>
-  <a href="stuhomepage.html" class="w3-bar-item w3-button">Home</a>
-  <a href="profile.html" class="w3-bar-item w3-button">Profile</a>
-  <a href="marklist.html" class="w3-bar-item w3-button">Marklist</a>
-  <a href="tuthod.html" class="w3-bar-item w3-button">Tutor & HOD</a>
-  <a href="log.html" class="w3-bar-item w3-button">Logout</a>
-</div>
+<?php require_once("../../includes/layouts/sidebar.php"); ?>
+
 
 <div id="main">
 
@@ -63,7 +61,7 @@ input[type=text]:focus, input[type=password]:focus {
   <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
     <h1 align="center">SUBMIT YOUR REQUEST</h1>
-	<h2 align="right">WELCOME NAME</h2>
+	<h2 align="right">WELCOME <?php print($_SESSION["name"]); ?></h2>
   </div>
 </div>
 
@@ -73,7 +71,7 @@ input[type=text]:focus, input[type=password]:focus {
   <p><button class="w3-button w3-teal w3-round-large"><a href="nodue.html">NO-DUE</a></button></p><br><br>
   
   <p><button class="w3-button w3-teal w3-round-large"><a href="caution.html">CAUTION-DEPOSIT</a></button></p><br><br>
-  <p><button class="w3-button w3-teal w3-round-large"><a href="othereq.html">OTHER REQUEST</a></button></p><br><br>
+  <p><button class="w3-button w3-teal w3-round-large"><a href="other_requests.php">OTHER REQUEST</a></button></p><br><br>
 </div>
 
 <br>
@@ -94,3 +92,7 @@ function w3_close() {
 
 </body>
 </html>
+
+<?php ob_end_flush(); 
+      mysqli_close($conn);
+?>

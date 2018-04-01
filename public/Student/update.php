@@ -61,7 +61,7 @@ input[type=text]:focus, input[type=password]:focus {
   <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
     <h1 align="center">UPDATE PROFILE</h1>
-	<h2 align="right">WELCOME <?php  print($_SESSION["user_id"]); ?> </h2>
+	<h2 align="right">WELCOME <?php print($_SESSION["name"]); ?> </h2>
   </div>
 </div>
 
@@ -138,44 +138,53 @@ input[type=text]:focus, input[type=password]:focus {
       global $conn;
       $old_user_id = $_SESSION["user_id"];
 
-      # Command to insert into table student_info
-      $sql = " UPDATE student_info SET ";
-      
-      $sql.= "name = '{$name}' ,";
-      #$sql.= "dob,";
-      #$sql.= "sex,";
-      #$sql.= "father,";
-      #$sql.= "f_occupation,";
-      #$sql.= "mother,";
-      #$sql.= "m_occupation,";
-      #$sql.= "category,";
-      #$sql.= "blood_group,";
-      #$sql.= "aadhar,";
-      #$sql.= "house_name,";
-      #$sql.= "place,";
-      #$sql.= "post_office,";
-      #$sql.= "district,";
-      $sql.= "mobile = '{$mobile}' ,";
-      $sql.= "email = '{$email}' ,";
-      #$sql.= "yoa,";
-      #$sql.= "admission_no,";
-      #$sql.= "register_no,";
-      #$sql.= "course,";
-      $sql.= "semester = '{$semester}' ,";
-      $sql.= "user_id = '{$userid}'  ,";
-      $sql.= "password  = '{$password}' ";
+      // Checking is new user_id already exists in the database.
+      $flag = 1;
+      if($old_user_id != $userid){ // Checking if the entered user_id is same as old one
+        $flag = check_existing_username($userid); // return value 1 means user id does not exist
+      }
+      if($flag == 1){
+        # Command to insert into table student_info
+        $sql = " UPDATE student_info SET ";
+        
+        $sql.= "name = '{$name}' ,";
+        #$sql.= "dob,";
+        #$sql.= "sex,";
+        #$sql.= "father,";
+        #$sql.= "f_occupation,";
+        #$sql.= "mother,";
+        #$sql.= "m_occupation,";
+        #$sql.= "category,";
+        #$sql.= "blood_group,";
+        #$sql.= "aadhar,";
+        #$sql.= "house_name,";
+        #$sql.= "place,";
+        #$sql.= "post_office,";
+        #$sql.= "district,";
+        $sql.= "mobile = '{$mobile}' ,";
+        $sql.= "email = '{$email}' ,";
+        #$sql.= "yoa,";
+        #$sql.= "admission_no,";
+        #$sql.= "register_no,";
+        #$sql.= "course,";
+        $sql.= "semester = '{$semester}' ,";
+        $sql.= "user_id = '{$userid}'  ,";
+        $sql.= "password  = '{$password}' ";
 
-      $sql.= "WHERE user_id = '{$old_user_id}' ";
+        $sql.= "WHERE user_id = '{$old_user_id}' ";
 
-      #Executing query
-      if (mysqli_query($conn, $sql)) {
-          echo "Profile Updated<br>";
-          // Updating user ID in session
-          unset($_SESSION["user_id"]);
-          $_SESSION["user_id"] = $userid;
-          redirect_to("update.php");
+        #Executing query
+        if (mysqli_query($conn, $sql)) {
+            echo "Profile Updated<br>";
+            // Updating user ID in session
+            unset($_SESSION["user_id"]);
+            $_SESSION["user_id"] = $userid;
+            redirect_to("update.php");
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
       } else {
-          echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        print "User ID is already taken";
       }
     }
 ?>
