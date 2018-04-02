@@ -1,5 +1,4 @@
 <?php 
-    require_once("../../includes/session.php");
     ob_start();
     require_once("../../includes/connect.php");
     require_once("../../includes/functions.php");   
@@ -161,7 +160,7 @@ button:hover {
         $m_occupation   = user_input_validation($_REQUEST["m_occupation"]);
         $category       = user_input_validation($_REQUEST["category"]);
         $blood          = user_input_validation($_REQUEST["bgroup"]);
-        $aadhar         = user_input_validation($_REQUEST["aadhar"]);
+        #$aadhar         = user_input_validation($_REQUEST["aadhar"]);
         $housename      = user_input_validation($_REQUEST["hname"]);
         $place          = user_input_validation($_REQUEST["plc"]);
         $postoffice     = user_input_validation($_REQUEST["post"]);
@@ -172,7 +171,7 @@ button:hover {
         $admission_no   = user_input_validation($_REQUEST["admno"]);
         $reg_no         = user_input_validation($_REQUEST["register"]);
         $course         = user_input_validation($_REQUEST["course"]);
-        $semester       = user_input_validation($_REQUEST["smstr"]);
+        $semester       = user_input_validation($_REQUEST["semester"]);
         $userid         = user_input_validation($_REQUEST["UserID"]);
         $password       = user_input_validation($_REQUEST["psw"]);
         #$repeat_password= user_input_validation($_REQUEST["psw-repeat"]);
@@ -184,78 +183,101 @@ button:hover {
         global $conn;
 
         // Checking if user id already exists in a database
-       if(check_existing_username($userid)){    // 1 means user id is not taken
-            # Command to insert into table student_info
-            $sql = "INSERT INTO student_info ( ";
-            
-            $sql.= "name,";
-            $sql.= "dob,";
-            $sql.= "sex,";
-            $sql.= "father,";
-            $sql.= "f_occupation,";
-            $sql.= "mother,";
-            $sql.= "m_occupation,";
-            $sql.= "category,";
-            $sql.= "blood_group,";
-            $sql.= "aadhar,";
-            $sql.= "house_name,";
-            $sql.= "place,";
-            $sql.= "post_office,";
-            $sql.= "district,";
-            $sql.= "mobile,";
-            $sql.= "email,";
-            $sql.= "yoa,";
-            $sql.= "admission_no,";
-            $sql.= "register_no,";
-            $sql.= "course,";
-            $sql.= "semester,";
-            $sql.= "user_id ,";
-            $sql.= "password ";
+       if(check_existing_username($userid,4)){    // 1 means user id is not taken
 
-            $sql.= ") VALUES ( ";
+            //Copying image
+            $image_name = $_FILES['file']['name'];
+            $target_dir = "../../images/student_profile/";
+            $target_file = $target_dir . basename($_FILES["file"]["name"]);
 
-            $sql.= " '{$name}' , ";
-            $sql.= " '{$dob}' , ";
-            $sql.= " '{$gender}' , ";
-            $sql.= " '{$father}' , ";
-            $sql.= " '{$f_occupation}' , ";
-            $sql.= " '{$mother}' , ";
-            $sql.= " '{$m_occupation}' , ";
-            $sql.= " '{$category}' , ";
-            $sql.= " '{$blood}' , ";
-            $sql.= " '{$aadhar}' , ";
-            $sql.= " '{$housename}' , ";
-            $sql.= " '{$place}' , ";
-            $sql.= " '{$postoffice}' , ";
-            $sql.= " '{$district}' , ";
-            $sql.= " '{$mobile}' , ";
-            $sql.= " '{$email}' , ";
-            $sql.= " '{$yoa}' , ";
-            $sql.= " '{$admission_no}' , ";
-            $sql.= " '{$reg_no}' , ";
-            $sql.= " '{$course}' , ";
-            $sql.= " '{$semester}' , ";
-            $sql.= " '{$userid}' , ";
-            $sql.= " '{$password}' ";
+             // Select file type
+             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-            $sql.= ")";
+             // Valid file extensions
+             $extensions_arr = array("jpg","jpeg","png","gif");
 
-            #Executing query
-            if (mysqli_query($conn, $sql)) {
-                echo "New record created successfully";
-                    redirect_to("login.php");
-            } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-            }
-       } 
-       print "user id already exists";
-        mysqli_close($conn);
+             // Check extension
+             if( in_array($imageFileType,$extensions_arr) ){
+             
+              // Upload file
+              $image_path = $target_dir.$userid.".".$imageFileType; //Image name changed to username.extension
+              move_uploaded_file($_FILES['file']['tmp_name'],$image_path);
+              # Command to insert into table student_info
+                $sql = "INSERT INTO student_info ( ";
+                
+                $sql.= "name,";
+                $sql.= "dob,";
+                $sql.= "sex,";
+                $sql.= "father,";
+                $sql.= "f_occupation,";
+                $sql.= "mother,";
+                $sql.= "m_occupation,";
+                $sql.= "category,";
+                $sql.= "blood_group,";
+                #$sql.= "aadhar,";
+                $sql.= "house_name,";
+                $sql.= "place,";
+                $sql.= "post_office,";
+                $sql.= "district,";
+                $sql.= "mobile,";
+                $sql.= "email,";
+                $sql.= "yoa,";
+                $sql.= "admission_no,";
+                $sql.= "register_no,";
+                $sql.= "course,";
+                $sql.= "semester,";
+                $sql.= "user_id ,";
+                $sql.= "password ,";
+                $sql.= "image_path";
+
+                $sql.= ") VALUES ( ";
+
+                $sql.= " '{$name}' , ";
+                $sql.= " '{$dob}' , ";
+                $sql.= " '{$gender}' , ";
+                $sql.= " '{$father}' , ";
+                $sql.= " '{$f_occupation}' , ";
+                $sql.= " '{$mother}' , ";
+                $sql.= " '{$m_occupation}' , ";
+                $sql.= " '{$category}' , ";
+                $sql.= " '{$blood}' , ";
+                #$sql.= " '{$aadhar}' , ";
+                $sql.= " '{$housename}' , ";
+                $sql.= " '{$place}' , ";
+                $sql.= " '{$postoffice}' , ";
+                $sql.= " '{$district}' , ";
+                $sql.= " '{$mobile}' , ";
+                $sql.= " '{$email}' , ";
+                $sql.= " '{$yoa}' , ";
+                $sql.= " '{$admission_no}' , ";
+                $sql.= " '{$reg_no}' , ";
+                $sql.= " '{$course}' , ";
+                $sql.= " '{$semester}' , ";
+                $sql.= " '{$userid}' , ";
+                $sql.= " '{$password}' , ";
+                $sql.= " '{$image_path}' ";
+
+                $sql.= ")";
+
+                #Executing query
+                if (mysqli_query($conn, $sql)) {
+                    echo "New record created successfully";
+                       redirect_to("login.php");
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                }
+             } else {
+                print "Image Upload Failed";
+             }
+       } else {
+            print "User id already exists";
+        }
     }
 ?>
 
 <body>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" style="border:1px solid #ccc" method = "post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" style="border:1px solid #ccc" method = "post" enctype="multipart/form-data" >
   <div class="container"align="left">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
@@ -295,9 +317,9 @@ button:hover {
 	 <label for="bgroup"><b>Blood Group</b></label>
     <input type="text" placeholder="Blood Group" name="bgroup" required>
 	<br><br>
-	 <label for="aadhar"><b>Aadhar Number</b></label>
+	 <!-- <label for="aadhar"><b>Aadhar Number</b></label>
     <input type="text" placeholder="Aadhar " name="aadhar" required>
-	<br><br>
+	<br><br> -->
 	
 	<hr>
     <h3 border: 1px solid #f1f1f1;
@@ -399,10 +421,7 @@ button:hover {
     -->
 	
 	<label for="Photo"><b>Attach a photo</b></label>
-	<input type="file" name="filetoupload" id="filetoupload"><br><br>
-	
-	<label for="Signature"><b>Attach a signature</b></label> 
-	<input type="file" name="filupload" id="filupload">
+	<input type="file" name="file" required /><br><br>
 	
 	<br><br>
 	<b>DECLARATION</b>
@@ -419,5 +438,7 @@ button:hover {
 
 </body>
 </html>
+
 <?php ob_end_flush(); 
+        mysqli_close($conn);
 ?>

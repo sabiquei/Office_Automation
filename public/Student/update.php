@@ -65,37 +65,10 @@ input[type=text]:focus, input[type=password]:focus {
   </div>
 </div>
 
-<img  align="right" src="anu.png" alt="Name" style="width:20%"><br>
-
-<div class="w3-container">
-  <form action="update.php" method ="post">
-    <div class="container" align="center">
-       <label for="name"><b>Name</b></label>
-          <input type="text" placeholder="Enter Name" name="name" required>
-      	<br><br>
-      	 <label for="Semester"><b>Semester</b></label>
-          <input type="text" placeholder="Enter Semester" name="semester" required>
-      	<br><br>
-      	 <label for="phn"><b>Phone Number</b></label>
-          <input type="text" placeholder="Enter Mobile Number" name="mobile" requiredrequired>
-      	<br><br>
-      	 <label for="emailid"><b>Email id</b></label>
-          <input type="text" placeholder="Enter Email id" name="email"required >
-      	<br><br>
-      	 <label for="userid"><b>User ID</b></label>
-          <input type="text" placeholder="Enter User ID" name="userid" required>
-      	<br><br>
-      	 <label for="password"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="password"required >
-      	<br><br>
-          <input type ="submit" value ="Update" name ="submit"><br><br>
-    </div>
-  </form>
-</div>
-
-</div>
-
+<img  align="right" src="<?php echo $_SESSION['image_path']; ?>" alt="Name" style="width:10%"><br>
 <?php
+      global $conn;
+      $old_user_id = $_SESSION["user_id"];
 
     if(isset($_POST["submit"])) { 
       #if(!empyt($_POST["name"])) {    
@@ -135,13 +108,10 @@ input[type=text]:focus, input[type=password]:focus {
         $password     = convert_password($password);
       #}
 
-      global $conn;
-      $old_user_id = $_SESSION["user_id"];
-
       // Checking is new user_id already exists in the database.
       $flag = 1;
       if($old_user_id != $userid){ // Checking if the entered user_id is same as old one
-        $flag = check_existing_username($userid); // return value 1 means user id does not exist
+        $flag = check_existing_username($userid,$_SESSION["user_type"]); // return value 1 means user id does not exist
       }
       if($flag == 1){
         # Command to insert into table student_info
@@ -167,9 +137,9 @@ input[type=text]:focus, input[type=password]:focus {
         #$sql.= "admission_no,";
         #$sql.= "register_no,";
         #$sql.= "course,";
-        $sql.= "semester = '{$semester}' ,";
+        #$sql.= "semester = '{$semester}' ,";
         $sql.= "user_id = '{$userid}'  ,";
-        $sql.= "password  = '{$password}' ";
+        #$sql.= "password  = '{$password}' ";
 
         $sql.= "WHERE user_id = '{$old_user_id}' ";
 
@@ -187,8 +157,44 @@ input[type=text]:focus, input[type=password]:focus {
         print "User ID is already taken";
       }
     }
+
+    // Obtain Default Values for all fields
+    $query = "SELECT * FROM student_info WHERE user_id = '{$old_user_id}' LIMIT 1 ";
+    $result = mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+    } else {
+          echo "0 results";
+    }
 ?>
 
+<div class="w3-container">
+  <form action="update.php" method ="post">
+    <div class="container" align="center">
+       <label for="name"><b>Name</b></label>
+          <input type="text" placeholder="Enter Name" name="name" value = "<?php echo $row['name']; ?>" required>
+      	<br><br>
+      	 <!-- <label for="Semester"><b>Semester</b></label>
+          <input type="text" placeholder="Enter Semester" name="semester" value = "<?php echo $row['semester']; ?>" required>
+      	<br><br> -->
+      	 <label for="phn"><b>Phone Number</b></label>
+          <input type="text" placeholder="Enter Mobile Number" name="mobile" value = "<?php echo $row['mobile']; ?>" required>
+      	<br><br>
+      	 <label for="emailid"><b>Email id</b></label>
+          <input type="text" placeholder="Enter Email id" name="email" value = "<?php echo $row['email']; ?>" required >
+      	<br><br>
+      	 <label for="userid"><b>User ID</b></label>
+          <input type="text" placeholder="Enter User ID" name="userid" value = "<?php echo $row['user_id']; ?>" required>
+      	<br><br>
+      	<!-- <label for="password"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password"required > -->
+      	<br><br>
+          <button type ="submit" name ="submit" class="w3-button w3-teal w3-round-large" >Update </button><br><br>
+    </div>
+  </form>
+</div>
+
+</div>
 <br>
 
 <script>
