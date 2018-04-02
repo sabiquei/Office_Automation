@@ -39,6 +39,9 @@
       $course = $row["course"];
       $semester = $row["semester"];
 
+      print $course;
+      print "<br>".$semester;
+
       //Obtaining Tutor and HOD Information
 
       $sql = "SELECT name,designation,mobile,email FROM tutor_info  WHERE department = '{$course}' AND semester = '{$semester}' AND designation = 'tutor' LIMIT 1";

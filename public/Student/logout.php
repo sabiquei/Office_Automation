@@ -7,8 +7,6 @@
 <?php 
 		unset($_SESSION["user_id"]);
 		unset($_SESSION["name"]);
-		unset($_SESSION["image_path"]);
-		unset($_SESSION["user_type"]);
 		redirect_to("login.php");
 ?>
 

@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<img  align="right" src= "<?php echo $_SESSION['image_path']; ?>" alt="Name" style="width:10%"><br>
+<img  align="right" src="anu.png" alt="Name" style="width:10%"><br>
 
 
 
@@ -52,7 +52,7 @@
 <p>Name :<?php global $row; print($row["name"]); ?></p><br>
 <p>Student ID :<?php global $row; print($row["admission_no"]); ?></p><br>
 <p>Semester :<?php global $row; print($row["semester"]); ?></p><br>
-<p>Department :<?php global $row; print(get_department_name($row["department"])); ?></p><br>
+<p>Dept:<?php global $row; print($row["course"]); ?></p><br>
 <p>Address :<?php global $row; print($row["house_name"]); ?></p><br>
 <p>Phone Number:<?php global $row; print($row["mobile"]); ?></p><br>
 <p>Email id :<?php global $row; print($row["email"]); ?></p><br>
