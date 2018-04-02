@@ -23,7 +23,6 @@
       } else {
           echo "0 results";
       }
-
 ?>
 
 <!DOCTYPE html>
@@ -44,14 +43,14 @@
   </div>
 </div>
 
-<img  align="right" src="anu.png" alt="Name" style="width:10%"><br><br>
+<img  align="right" src="<?php echo $_SESSION['image_path']; ?>" alt="Name" style="width:10%"><br><br>
 
 
 
 <div class="w3-container">
 <p>Name : <?php global $row; print($row["name"]); ?></p><br>
 <p>Student ID : <?php global $row; print($row["admission_no"]); ?> </p><br>
-<p>Semester , Dept : <?php global $row; print($row["semester"]." , ". $row["course"]); ?> </p><br>
+<p>Semester , Department : <?php global $row; print($row["semester"]." , ".get_department_name($row["department"]));  ?> </p><br>
 
 </div>
 <div class="w3-button w3-teal w3-block w3-round-xxlarge" align="center" style="width:50% padding:100%"><a href="request.php">Submit a Request </a><br>
