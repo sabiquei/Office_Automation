@@ -104,16 +104,16 @@ input[type=text]:focus, input[type=password]:focus {
         $userid     = user_input_validation($_POST["userid"]);
       #}
       #if(!empyt($_POST["password"])) {
-        $password     = user_input_validation($_POST["password"]);
-        $password     = convert_password($password);
+        #$password     = user_input_validation($_POST["password"]);
+        #$password     = convert_password($password);
       #}
 
       // Checking is new user_id already exists in the database.
-      $flag = 1;
+      /*$flag = 1;
       if($old_user_id != $userid){ // Checking if the entered user_id is same as old one
         $flag = check_existing_username($userid,$_SESSION["user_type"]); // return value 1 means user id does not exist
       }
-      if($flag == 1){
+      if($flag == 1){ */
         # Command to insert into table student_info
         $sql = " UPDATE student_info SET ";
         
@@ -132,13 +132,13 @@ input[type=text]:focus, input[type=password]:focus {
         #$sql.= "post_office,";
         #$sql.= "district,";
         $sql.= "mobile = '{$mobile}' ,";
-        $sql.= "email = '{$email}' ,";
+        $sql.= "email = '{$email}' ";
         #$sql.= "yoa,";
         #$sql.= "admission_no,";
         #$sql.= "register_no,";
         #$sql.= "course,";
         #$sql.= "semester = '{$semester}' ,";
-        $sql.= "user_id = '{$userid}'  ,";
+        #$sql.= "user_id = '{$userid}'  ,";
         #$sql.= "password  = '{$password}' ";
 
         $sql.= "WHERE user_id = '{$old_user_id}' ";
@@ -147,15 +147,15 @@ input[type=text]:focus, input[type=password]:focus {
         if (mysqli_query($conn, $sql)) {
             echo "Profile Updated<br>";
             // Updating user ID in session
-            unset($_SESSION["user_id"]);
-            $_SESSION["user_id"] = $userid;
+            //unset($_SESSION["user_id"]);
+            //$_SESSION["user_id"] = $userid;
             redirect_to("update.php");
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-      } else {
+      /*} else {
         print "User ID is already taken";
-      }
+      } */
     }
 
     // Obtain Default Values for all fields
@@ -183,10 +183,10 @@ input[type=text]:focus, input[type=password]:focus {
       	 <label for="emailid"><b>Email id</b></label>
           <input type="text" placeholder="Enter Email id" name="email" value = "<?php echo $row['email']; ?>" required >
       	<br><br>
-      	 <label for="userid"><b>User ID</b></label>
+      	 <!-- <label for="userid"><b>User ID</b></label>
           <input type="text" placeholder="Enter User ID" name="userid" value = "<?php echo $row['user_id']; ?>" required>
       	<br><br>
-      	<!-- <label for="password"><b>Password</b></label>
+      	<label for="password"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="password"required > -->
       	<br><br>
           <button type ="submit" name ="submit" class="w3-button w3-teal w3-round-large" >Update </button><br><br>
@@ -196,20 +196,6 @@ input[type=text]:focus, input[type=password]:focus {
 
 </div>
 <br>
-
-<script>
-function w3_open() {
-  document.getElementById("main").style.marginLeft = "25%";
-  document.getElementById("mySidebar").style.width = "25%";
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("openNav").style.display = 'none';
-}
-function w3_close() {
-  document.getElementById("main").style.marginLeft = "0%";
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("openNav").style.display = "inline-block";
-}
-</script>
 
 </body>
 </html>

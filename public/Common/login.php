@@ -25,7 +25,7 @@
         <input type="password" placeholder="Enter Password" name="password" required> <br><br> 
         <label for="user_type"><b>User Type</b></label>
         <select name="user_type" required>
-          <option value="4" >Student</option>
+          <option value="4">Student</option>
           <option value="3">Teacher</option>
           <option value="2">HOD</option>
           <option value="1">Principal</option>
@@ -49,7 +49,7 @@
           // Student Login
           if($user_type == 4) {
             $sql = "SELECT password,name,image_path from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
-            $homepage = "stuhomepage.php";
+            $homepage = "../Student/stuhomepage.php";
           } elseif ($user_type == 3) {
             $sql = "SELECT password,name from tutor_info WHERE user_id = '{$userid}' LIMIT 1 ";
             $homepage = "../Teacher/tutor_home.php";

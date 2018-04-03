@@ -184,7 +184,7 @@ button:hover {
 
             if (mysqli_query($conn, $sql)) {
                 echo "New record created successfully";
-                redirect_to("../student/login.php");
+                redirect_to("../common/login.php");
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }

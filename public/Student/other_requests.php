@@ -21,8 +21,8 @@
 			</div>
 			<div class="w3-card-4">
 		  		<form class="w3-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-				    <label class="w3-text-teal"><b>Application for :</b></label>
-					<input class="w3-input w3-border w3-animate-input" type="text" style="width:50%" name ="application_for" required>
+				    <!-- <label class="w3-text-teal"><b>Application for :</b></label>
+					<input class="w3-input w3-border w3-animate-input" type="text" style="width:50%" name ="application_for" required> -->
 	 
 					<label class="w3-text-teal"><b>Subject</b></label>
 					<input class="w3-input w3-border w3-animate-input" type="text" style="width:50%" name ="subject" required>
@@ -47,19 +47,6 @@
 			  	</form>
 		   	</div>
 	   </div>
-	   	<script>
-			function w3_open() {
-			  document.getElementById("main").style.marginLeft = "25%";
-			  document.getElementById("mySidebar").style.width = "25%";
-			  document.getElementById("mySidebar").style.display = "block";
-			  document.getElementById("openNav").style.display = 'none';
-			}
-			function w3_close() {
-			  document.getElementById("main").style.marginLeft = "0%";
-			  document.getElementById("mySidebar").style.display = "none";
-			  document.getElementById("openNav").style.display = "inline-block";
-			}
-		</script>
 	</body>
 </html> 
 <?php
@@ -68,11 +55,14 @@
 		global $conn;
 
     	# Reading variables from form   
-	    $category   = user_input_validation($_POST["application_for"]);
+	    $category   = "Other";
 	   	$subject    = user_input_validation($_POST["subject"]);
 	    $body       = user_input_validation($_POST["body"]);
 	  	$levels		= user_input_validation($_POST["levels"]);
-      	$user_id = $_SESSION["user_id"];
+      	$user_id 	= $_SESSION["user_id"];
+
+      	$tutor = get_tutor_details($user_id);
+      	$hod = get_hod_details($user_id);
 
       	# Command to insert into table student_info
       	$sql = " INSERT INTO pending_requests_other( ";
@@ -80,9 +70,9 @@
       	$sql .= "subject, ";
       	$sql .= "category, ";
       	$sql .= "body, ";
-      	$sql .= "levels ";
-      	#$sql .= "tutor_id, ";
-      	#$sql .= "hod_id "; 
+      	$sql .= "levels , ";
+      	$sql .= "tutor_id, ";
+      	$sql .= "hod_id "; 
       	
       	$sql .=") VALUES ( ";
 
@@ -90,9 +80,9 @@
       	$sql .= " '{$subject}' , ";
       	$sql .= " '{$category}' , ";
       	$sql .= " '{$body}' , ";
-      	$sql .= " '{$levels}'  ";
-      	#$sql .= " '{$tutor_id}'  ";
-      	#$sql .= " '{$hod_id}'  ";
+      	$sql .= " '{$levels}' , ";
+      	$sql .= " '{$tutor["user_id"]}' ,";
+      	$sql .= " '{$hod["user_id"]}'  ";
 
       	$sql.= " ) ";
 

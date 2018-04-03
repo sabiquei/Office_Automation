@@ -13,21 +13,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
-
-    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-      <button class="w3-bar-item w3-button w3-large"
-      onclick="w3_close()">Close &times;</button>
-      <a href="#" class="w3-bar-item w3-button">Inbox</a>
-      <a href="tuthomepage.html" class="w3-bar-item w3-button">Home</a>
-      <a href="#" class="w3-bar-item w3-button">Approved</a>
-      <a href="#" class="w3-bar-item w3-button">Declined</a>
-      <a href="../student/logout.php" class="w3-bar-item w3-button">Logout</a>
-    </div>
+    <?php require_once("../../includes/layouts/tutor_sidebar.php"); ?>
     <?php 
           global $conn;
           # User ID
           $userid = $_SESSION["user_id"];
 
+          //Query
           $sql = "SELECT name,designation,semester,department,mobile,email FROM tutor_info WHERE user_id = '{$userid}'";
 
           # Executing query
@@ -58,19 +50,6 @@
       </div>
     </div>
     <br>
-    <script>
-      function w3_open() {
-        document.getElementById("main").style.marginLeft = "25%";
-        document.getElementById("mySidebar").style.width = "25%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-      }
-      function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-      }
-    </script>
   </body>
 </html>
 <?php ob_end_flush(); 

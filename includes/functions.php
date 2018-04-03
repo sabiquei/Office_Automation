@@ -29,7 +29,7 @@
 
 	function confirm_logged_in() {
 		if(!isset($_SESSION["user_id"]))
-			redirect_to("login.php");	
+			redirect_to("../common/login.php");	
 	}
 
 	function convert_password($password) {
@@ -69,19 +69,66 @@
 	}
 
 	function get_department_name($department_id){
-		if($department_id = 415){
-			$department_name = "Computer Science and Engineering";
-		} elseif ($department_id = 416) {
-			$department_name = "Information and Technology";
-		} elseif ($department_id = 403) {
-			$department_name = "Mechanical Engineering";
-		} elseif ($department_id = 401) {
-			$department_name = "Civil Engineering";
-		} elseif ($department_id = 412) {
-			$department_name = "Electronics and Communication Engineering";
-		} elseif ($department_id = 411) {
-			$department_name = "Electrical and Electronics Engineering";
+		if($department_id == 415){
+			return "Computer Science and Engineering";
+		} elseif ($department_id == 416) {
+			return "Information and Technology";
+		} elseif ($department_id == 403) {
+			return "Mechanical Engineering";
+		} elseif ($department_id == 401) {
+			return "Civil Engineering";
+		} elseif ($department_id == 412) {
+			return  "Electronics and Communication Engineering";
+		} elseif ($department_id == 411) {
+			return "Electrical and Electronics Engineering";
+		} else {
+			return " ";
 		}
-		return $department_name;
+	}
+
+	function get_student_details($userid) {
+		global $conn;
+		$sql = "SELECT * from student_info where user_id = '{$userid}' LIMIT 1 ";
+		$result = mysqli_query($conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+  			$row = mysqli_fetch_assoc($result);
+  			return $row;
+      } else {
+  			return "";
+      }
+	}
+
+	function get_tutor_details($userid) { //based on student_id
+		global $conn;
+
+		$student_details = get_student_details($userid);
+		$sql = "SELECT * FROM tutor_info  WHERE department = '{$student_details["course"]}' AND semester = '{$student_details["semester"]}' AND designation = 'tutor' LIMIT 1";
+
+	    // Executing query
+	    $result = mysqli_query($conn, $sql);
+
+	    if (mysqli_num_rows($result) > 0) {
+	    // output data of each row
+	    	$row = mysqli_fetch_assoc($result);
+	    	return $row;
+	    } else {
+	        return "";
+	    }
+	}
+
+	function get_hod_details($userid) { //based on student_id
+		global $conn;
+		$student_details = get_student_details($userid);
+	    $sql = "SELECT * FROM hod_info  WHERE department = '{$student_details["course"]}' LIMIT 1";
+	    // Executing query
+	    $result = mysqli_query($conn, $sql);
+
+	    if (mysqli_num_rows($result) > 0) {
+	    // output data of each row
+	    	$row = mysqli_fetch_assoc($result);
+	    	return $row;
+	    } else {
+	        return "";
+	    }
 	}
 ?>

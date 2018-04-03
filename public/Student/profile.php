@@ -7,7 +7,6 @@
 ?>
 
 <?php 
-
       global $conn;
       // User ID
       $userid = $_SESSION["user_id"];
@@ -49,13 +48,13 @@
 
 
 <div class="w3-container">
-<p>Name :<?php global $row; print($row["name"]); ?></p><br>
-<p>Student ID :<?php global $row; print($row["admission_no"]); ?></p><br>
-<p>Semester :<?php global $row; print($row["semester"]); ?></p><br>
-<p>Department :<?php global $row; print(get_department_name($row["department"])); ?></p><br>
-<p>Address :<?php global $row; print($row["house_name"]); ?></p><br>
-<p>Phone Number:<?php global $row; print($row["mobile"]); ?></p><br>
-<p>Email id :<?php global $row; print($row["email"]); ?></p><br>
+<p>Name : <?php global $row; print($row["name"]); ?></p><br>
+<p>Student ID : <?php global $row; print($row["admission_no"]); ?></p><br>
+<p>Semester : <?php global $row; print($row["semester"]); ?></p><br>
+<p>Department : <?php global $row; print(get_department_name($row["course"])); ?></p><br>
+<p>Address : <?php global $row; print($row["house_name"]); ?></p><br>
+<p>Phone Number : <?php global $row; print($row["mobile"]); ?></p><br>
+<p>Email id : <?php global $row; print($row["email"]); ?></p><br>
 </div>
 
 </div>
@@ -65,20 +64,6 @@
    
 </div>
 <br>
-
-<script>
-function w3_open() {
-  document.getElementById("main").style.marginLeft = "25%";
-  document.getElementById("mySidebar").style.width = "25%";
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("openNav").style.display = 'none';
-}
-function w3_close() {
-  document.getElementById("main").style.marginLeft = "0%";
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("openNav").style.display = "inline-block";
-}
-</script>
 
 </body>
 </html>

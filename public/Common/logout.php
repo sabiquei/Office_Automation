@@ -9,7 +9,7 @@
 		unset($_SESSION["name"]);
 		unset($_SESSION["image_path"]);
 		unset($_SESSION["user_type"]);
-		redirect_to("login.php");
+		redirect_to("../common/login.php");
 ?>
 
 <?php ob_end_flush(); 

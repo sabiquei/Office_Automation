@@ -5,5 +5,53 @@
 3.	The request information is stored in request table.
 
 # Format of Request Table
-																					#tutuor/HOD/office
-Serial No.	Category	Subject		Body	Student_id	Tutuor_id	HOD_id 		Status	Level				Rejection Reason	Comments
+--------------------------																	
+Serial No.	Category	Subject		Body	Student_id	Tutuor_id	HOD_id 		Status	Level		Remarks		Current Level	Status_Comments
+																																// it could be under tutor consideration
+																																// Rejected by tutor/hod/principal
+																																// accepted by tutor/hod and forwarded to hod/principl
+
+
+# Status  Field-Value
+----------------------
+0 - Under consideration
+1 - Accepted
+2 - Rejected
+
+# Levels Field-Value
+---------------------
+1 - At Tutor Level
+2 - At HOD Level
+3 - At Principal Level
+
+# Current Level  Field-Value
+-----------------------------
+0 - At Tutor 
+1 - Accepted by Tutor and Forwarded to HOD
+2 - Accepted by HOD and Forwared to Principal
+3 - Accepted by Prinicpal
+
+Tutor-Level // (Consider tutor_id,department,semester)
+-----------
+* Check for requests with status as 0 and current level as 0
+
+HOD-Level // (Consider hod_id,department)
+----------
+* Check for requests with status as 0 and current level as 1
+
+Prinicipal-Level
+-----------------
+
+* Check for requests with status as 0 and current level as 2
+
+In tutor Accepted/Rejected 
+---------------------------
+* Check for requests with status as 1/2
+
+In HOD Accepted/Rejected 
+---------------------------
+* Check for requests with status as 1/2 and Level > 1
+
+In Prinicipal Accepted/Rejected 
+--------------------------------
+* Check for requests with status as 1/2 and Level > 2
