@@ -34,7 +34,7 @@
         <button type="submit" name ="submit">Login</button> <br><br>
       </div>
       <div class="container" style="background-color:#f1f1f1" align="center">
-        <a href="studentregistration.php">Create a new account</a>
+        <a href="../Student/studentregistration.php">Create a new account</a>
       </div>
     </form>
 
