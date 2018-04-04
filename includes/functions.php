@@ -24,7 +24,6 @@
 		global $conn;
 		$data = mysqli_real_escape_string($conn,$data);
 		return $data;
-
 	}
 
 	function confirm_logged_in() {
@@ -91,8 +90,7 @@
 		$sql = "SELECT * from student_info where user_id = '{$userid}' LIMIT 1 ";
 		$result = mysqli_query($conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
-  			$row = mysqli_fetch_assoc($result);
-  			return $row;
+  			return mysqli_fetch_assoc($result);
       } else {
   			return "";
       }
@@ -109,8 +107,7 @@
 
 	    if (mysqli_num_rows($result) > 0) {
 	    // output data of each row
-	    	$row = mysqli_fetch_assoc($result);
-	    	return $row;
+	    	return mysqli_fetch_assoc($result);
 	    } else {
 	        return "";
 	    }
@@ -125,10 +122,21 @@
 
 	    if (mysqli_num_rows($result) > 0) {
 	    // output data of each row
-	    	$row = mysqli_fetch_assoc($result);
-	    	return $row;
+	    	return mysqli_fetch_assoc($result);
 	    } else {
 	        return "";
 	    }
+	}
+
+	function get_request_details($request_no) {
+		global $conn;
+		$sql = " SELECT * FROM  pending_requests_other WHERE request_no = '{$request_no}' LIMIT 1";
+	  	# Executing query
+	  	$result_from_query = mysqli_query($conn,$sql);
+	  	if (mysqli_num_rows($result_from_query) > 0) {
+			return mysqli_fetch_assoc($result_from_query);
+	      } else {
+	          return "No results";
+	      }
 	}
 ?>
