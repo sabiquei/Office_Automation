@@ -35,6 +35,12 @@
       </div>
       <div class="container" style="background-color:#f1f1f1" align="center">
         <a href="../Student/studentregistration.php">Create a new account</a>
+		<select name="new_account" required>
+          <option value="4">Student</option>
+          <option value="3">Teacher</option>
+          <option value="2">HOD</option>
+          <option value="1">Principal</option>
+        </select><br><br>  
       </div>
     </form>
 
