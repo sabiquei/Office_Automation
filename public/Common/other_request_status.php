@@ -2,7 +2,7 @@
       ob_start();
       require_once("../../includes/connect.php");
       require_once("../../includes/functions.php");
-      confirm_logged_in(2);
+      confirm_logged_in($_SESSION["user_type"]);
 
 	# getting variables from url using get function
 	$request_no = $_GET['request_no'];
@@ -10,7 +10,7 @@
 
 	if($category != "Other") {
 		print "Not the proper category";
-		# Should redirect according to category
+		#should redirect according to category
 	}
   	# Get request details and student details
     $row = get_request_details($request_no);
@@ -25,7 +25,17 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<body>
-		<?php require_once("../../includes/layouts/hod_sidebar.php"); ?>
+		<?php 
+			if($_SESSION["user_type"] == 4){
+				require_once("../../includes/layouts/sidebar.php"); 
+			} elseif($_SESSION["user_type"] == 3){
+				require_once("../../includes/layouts/tutor_sidebar.php"); 
+			} elseif($_SESSION["user_type"] == 2){
+				require_once("../../includes/layouts/hod_sidebar.php"); 
+			} elseif($_SESSION["user_type"] == 1){
+				require_once("../../includes/layouts/principal_sidebar.php"); 
+			}
+		?>
 		<div id="main">
 			<div class="w3-teal">
 			  <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
@@ -57,13 +67,12 @@
 				    		<div class="w3-rest">
 								<textarea placeholder="Write your request here..." class="w3-input w3-border w3-margin-bottom" style="height:300px" name ="body"  disabled> <?php global $row; echo $row["body"]; ?> </textarea>
 							</div>
-							
 							<label class="w3-text-teal"><b>Remarks</b></label>
-							<input class="w3-input w3-border w3-animate-input" type="text" style="width:50%" name ="remarks" placeholder = "Enter Remarks here.."  required>
+							<input class="w3-input w3-border w3-animate-input" type="text" style="width:50%" name ="remarks" value = "<?php global $row; echo $row["remarks"]; ?>"  disabled>
 
-							<input type ="submit" class="w3-button w3-right" onclick="document.getElementById('id01').style.display='none'" name="submit" value="Reject"> <i class="fa fa-paper-plane"></i>
+							<!-- <input type ="submit" class="w3-button w3-right" onclick="document.getElementById('id01').style.display='none'" name="submit" value="Reject"> <i class="fa fa-paper-plane"></i>
 
-							<input type ="submit" class="w3-button w3-right" onclick="document.getElementById('id01').style.display='none'" name="submit" value="Accept"> <i class="fa fa-paper-plane"></i>
+							<input type ="submit" class="w3-button w3-right" onclick="document.getElementById('id01').style.display='none'" name="submit" value="Accept"> <i class="fa fa-paper-plane"></i> -->
 							<p>Request to be Forwarded<i class="w3-padding fa fa-arrow-right"></i></p>
 							<?php 
 								global $row;

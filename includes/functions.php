@@ -140,4 +140,44 @@
 	          return "No results";
 	      }
 	}
+
+	function get_status_remarks($status,$current_level) {
+		if($status == 0) {
+			if($current_level == 0){
+				return "Under Consideration by Tutor";
+			} elseif ($current_level == 1) {
+				return "Under Consideration by HOD";
+			} elseif ($current_level == 2) {
+				return "Under Consideration by Principal";
+			}
+		} elseif ($status == 1) {
+			if ($current_level == 1) {
+				return "Accepted By Tutor";
+			} elseif ($current_level == 2) {
+				return "Accepted by HOD";
+			} elseif ($current_level == 3) {
+				return "Accepted by Principal";
+			}
+		} elseif ($status == 2) {
+			if ($current_level == 0) {
+				return "Rejected By Tutor";
+			} elseif ($current_level == 1) {
+				return "Rejected by HOD";
+			} elseif ($current_level == 3) {
+				return "Rejected by Principal";
+			}
+		} else {
+			return "Something is wrong with this request";
+		}
+	}
+
+	function get_status_color($status) {
+		if($status == 0) {
+			return "black";
+		}elseif($status == 1) {
+			return "green";
+		}elseif($status == 2) {
+			return "red";
+		}
+	}
 ?>

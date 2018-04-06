@@ -1,8 +1,15 @@
+<?php 
+
+// This file is for combinig all the similar pages
+// This file is currently unused
+
+?>
+
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
       <button class="w3-bar-item w3-button w3-large"
       onclick="w3_close()">Close &times;</button>
-      <a href="../HOD/hod_inbox.php" class="w3-bar-item w3-button">Inbox</a>
-      <a href="../HOD/hod_home.php" class="w3-bar-item w3-button">Home</a>
+      <a href="inbox.php" class="w3-bar-item w3-button">Inbox</a>
+      <a href="home.php" class="w3-bar-item w3-button">Home</a>
       <a href="../common/history.php" class="w3-bar-item w3-button">History</a>
       <a href="../common/logout.php" class="w3-bar-item w3-button">Logout</a>
 </div>

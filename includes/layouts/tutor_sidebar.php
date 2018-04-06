@@ -1,10 +1,9 @@
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
       <button class="w3-bar-item w3-button w3-large"
       onclick="w3_close()">Close &times;</button>
-      <a href="tutor_inbox.php" class="w3-bar-item w3-button">Inbox</a>
-      <a href="tutor_home.php" class="w3-bar-item w3-button">Home</a>
-      <a href="#" class="w3-bar-item w3-button">Approved</a>
-      <a href="#" class="w3-bar-item w3-button">Declined</a>
+      <a href="../Teacher/tutor_inbox.php" class="w3-bar-item w3-button">Inbox</a>
+      <a href="../Teacher/tutor_home.php" class="w3-bar-item w3-button">Home</a>
+      <a href="../common/history.php" class="w3-bar-item w3-button">History</a>
       <a href="../common/logout.php" class="w3-bar-item w3-button">Logout</a>
 </div>
 
