@@ -26,9 +26,10 @@
 		return $data;
 	}
 
-	function confirm_logged_in() {
-		if(!isset($_SESSION["user_id"]))
-			redirect_to("../common/login.php");	
+	function confirm_logged_in($user_type) {
+		if((!isset($_SESSION["user_id"])) || ($_SESSION["user_type"] != $user_type)) {
+			redirect_to("../common/logout.php");	
+		}
 	}
 
 	function convert_password($password) {

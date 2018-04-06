@@ -1,61 +1,66 @@
 <?php
+	require_once("../../includes/session.php");
 	ob_start();
 	require_once("../../includes/connect.php");
     require_once("../../includes/functions.php");
-	print "In";
-	foreach ($_POST as $key => $value) {
-			print $key." => ".$value."<br>";
+    confirm_logged_in($_SESSION["user_type"]);
 
+	$request_no = $_GET["request_no"];
+	if($_SESSION["user_type"] == 3){
+		$redirect_to = "../Teacher/tutor_inbox.php";
+	} else if($_SESSION["user_type"] == 2) {
+		$redirect_to = "../HOD/hod_inbox.php";
+	} else if($_SESSION["user_type"] == 1) {
+		$redirect_to = "../Principal/inbox.php";
 	}
-	$request_no_get = $_GET["request_no"];
-	print $request_no_get;
-	print "<br>";
 	// Checking for submit
-		if($_POST["submit"] == "Accept"){
-			print "inhere";
-		
-		$request_no = $_POST["request_no"]; 
-		print $request_no."<br>";
-
+	if($_POST["submit"] == "Accept"){
+		print $request_details;
 		$request_details = get_request_details($request_no);
 
-		foreach ($request_details as $key => $value) {
-			print $key." => ".$value."<br>";
-		}
-
+		// Obtain remarks form POST SuperGlobal
+		$remarks = user_input_validation($_POST["remarks"]);
 
 		$request_details["current_level"] = $request_details["current_level"] + 1;
 
+		foreach ($request_details as $key => $value) {
+			print $key." -> ".$value."<br>";
+		}
+
+		$sql = "UPDATE pending_requests_other SET current_level = '{$request_details["current_level"]}' , remarks = '{$remarks}' ";
 		if($request_details["current_level"] == $request_details["levels"]){
 			$request_details["status"] = 1;
-			print "Accepted";
-
-			// to do
-			// Update the changes in the table
-
+			$sql .= " , status = '{$request_details["status"]}' ";
+			//print "Accepted";
+			//Should Set a message
+			
 		} else {
-			print "Forwarded to HOD";
-			redirect_to("../Teacher/tutor_inbox.php");
+			// Forward case
+			// Should set a message here
 		}
-		# code when tutor accepts the request
-		/*	ToDo
-		increment current level by one 
-		if current level = levels
-			set status as 1
-			print "accepted";
-		else 
-			do nothing it means request has been forwarded to next level
-			print "accepted and forwarded";
-		*/
-	}elseif (isset($_POST["submit"]) == "Reject") {
-		# code when tutor rejects the request
-		/*
-			since tutor rejected it, it should not show up in inbox but should show up in rejected list
-			status becomes 2
-			Set comments and rejected.
-			Set message as the remarks field.
-		*/
-		print "rejected";
+		$sql .= "WHERE request_no = '{$request_no}' ";
+		global $conn;
+		if(mysqli_query($conn,$sql)){
+			redirect_to($redirect_to);
+		} else {
+			print "Something Went wrong at while accepting";
+		}
+	}elseif ($_POST["submit"] == "Reject") {
+
+		$request_details["status"] = 2;
+
+		// Obtain remarks form POST SuperGlobal
+		$remarks = user_input_validation($_POST["remarks"]);
+
+		$sql = "UPDATE pending_requests_other SET status = '{$request_details["status"]}', remarks = '{$remarks}' WHERE request_no = '{$request_no}'  ";
+		global $conn;
+		if(mysqli_query($conn,$sql)){
+			redirect_to($redirect_to);
+		} else {
+			print "Something Went wrong while rejecting";
+		}
+
+		// Should set message as rejected
 	}
 	ob_end_flush();
 ?>

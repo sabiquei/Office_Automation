@@ -2,7 +2,7 @@
       ob_start();
       require_once("../../includes/connect.php");
       require_once("../../includes/functions.php");
-      confirm_logged_in();
+      confirm_logged_in(4);
 ?>
 <!DOCTYPE html>
 <html>

@@ -142,6 +142,19 @@ button:hover {
 	<h2> Personal Details</h2>
 	 <label for="name"><b>Name</b></label>
     <input type="text" placeholder="Enter Name" name="name" required>
+	<br><br>
+	
+	<label for="designation"><b>Designation</b></label>
+    <input type="text" placeholder="Designation" name="designation" required>
+	<br><br>
+    
+	 <label for="semester"><b>Semester</b></label>
+    <input type="text" placeholder="semester" name="semester" required>
+	<br><br>
+	
+	<label for="dept"><b>Department</b></label>
+    <input type="text" placeholder="Dept" name="dept" required>
+	<br><br>
 	
 	<label for="ph"><b>Phone Number</b></label>
     <input type="text" placeholder="phonenumber" name="ph" required>

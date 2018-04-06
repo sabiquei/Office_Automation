@@ -3,7 +3,7 @@
     ob_start(); 
     require_once("../../includes/connect.php");
     require_once("../../includes/functions.php"); 
-    confirm_logged_in(3);
+    confirm_logged_in(1);
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     </style>
   </head>
   <body>
-    <?php require_once("../../includes/layouts/tutor_sidebar.php"); ?>
+    <?php require_once("../../includes/layouts/principal_sidebar.php"); ?>
     <div id="main">
       <div class="w3-teal">
         <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
@@ -36,7 +36,7 @@
           global $conn;
           $userid = $_SESSION["user_id"];
 
-          $sql = "SELECT * FROM `pending_requests_other` WHERE `tutor_id` = '{$userid}' and `current_level` = 0 and `status` = 0 ";
+          $sql = "SELECT * FROM `pending_requests_other` WHERE `current_level` = 2 and `status` = 0 ";
           $result = mysqli_query($conn,$sql);
 
           $count = mysqli_num_rows($result);

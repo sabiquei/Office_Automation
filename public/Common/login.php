@@ -53,11 +53,13 @@
           } elseif ($user_type == 3) {
             $sql = "SELECT password,name from tutor_info WHERE user_id = '{$userid}' LIMIT 1 ";
             $homepage = "../Teacher/tutor_home.php";
-          } /*elseif ($user_type == 2) { //Not Completed from here.
-            $sql = "SELECT password,name,image_path from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
+          } elseif ($user_type == 2) { 
+            $sql = "SELECT password,name from hod_info WHERE user_id = '{$userid}' LIMIT 1 ";
+            $homepage = "../HOD/hod_home.php";
           } elseif ($user_type == 1) {
-            $sql = "SELECT password,name,image_path from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
-          } elseif ($user_type == 0) {
+            $sql = "SELECT password,name from principal_info WHERE user_id = '{$userid}' LIMIT 1 ";
+            $homepage = "../principal/home.php";
+          } /*elseif ($user_type == 0) {
             $sql = "SELECT password,name,image_path from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
           } */
 
