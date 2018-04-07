@@ -33,14 +33,16 @@
         </select><br><br>  
         <button type="submit" name ="submit">Login</button> <br><br>
       </div>
+    </form>
       <div class="container" style="background-color:#f1f1f1" align="center">
-        <a href="../Student/studentregistration.php">Create a new account</a>
-		<select name="new_account" required>
-          <option value="4">Student</option>
-          <option value="3">Teacher</option>
-          <option value="2">HOD</option>
-          <option value="1">Principal</option>
-        </select><br><br>  
+        <form method="login.php" method="get">
+  		    <select name="new_account_type" required>
+            <option value="4">Student</option>
+            <option value="3">Teacher</option>
+            <option value="2">HOD</option>
+            <option value="1">Principal</option>
+          </select><br><br>  
+          <button type="submit" name ="create">Create an Account</button> <br><br>
       </div>
     </form>
 
@@ -87,6 +89,17 @@
           } else {
               print " Invalid User name<br>";
           }
+        } elseif(isset($_GET["create"])) {
+            $new_account_type = $_GET["new_account_type"];
+            if ($new_account_type == 4 ) {
+              redirect_to("../Student/studentregistration.php");
+            } elseif($new_account_type == 3 ) {
+              redirect_to("../Teacher/tutor_registration.php");
+            } elseif($new_account_type == 2 ) {
+              redirect_to("../HOD/hodreg.php");
+            } elseif($new_account_type == 1 ) {
+              // add corresponding link for principal
+            } 
         }
     ?>
   </body>

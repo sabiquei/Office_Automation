@@ -51,30 +51,42 @@ input[type=text]:focus, input[type=password]:focus {
 </style>
 
 <body>
+    <?php 
+      if(isset($_GET["no_due"])) {
+        $sql = "INSERT INTO `no_due_requests` (`student_id`) VALUES ('{$_SESSION["user_id"]}') ";
+        if (mysqli_query($conn, $sql)) {
+          $_SESSION["message"] = "No due request send to all departments";
+          } else {
+              $_SESSION["message"] = mysqli_error($conn);
+          }
+    }
+  ?>
 
-<?php require_once("../../includes/layouts/sidebar.php"); ?>
+  <?php require_once("../../includes/layouts/sidebar.php"); ?>
 
+  <div id="main">
 
-<div id="main">
-
-<div class="w3-teal">
-  <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
-  <div class="w3-container">
-    <h1 align="center">SUBMIT YOUR REQUEST</h1>
-	<h2 align="right">WELCOME <?php print($_SESSION["name"]); ?></h2>
+  <div class="w3-teal">
+    <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+    <div class="w3-container">
+      <h1 align="center">SUBMIT YOUR REQUEST</h1>
+  	<h2 align="right">WELCOME <?php print($_SESSION["name"]); ?></h2><br>
+    <?php print $_SESSION["message"]; 
+          unset($_SESSION["message"]);
+    ?>
+    </div>
   </div>
-</div>
 
+  <div class="w3-container" ALIGN="CENTER">
+  <h2 align="center" font-family="san-serif"><b>Select your choice of request</b></h2><br><br>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method ="get">
+      <button type="submit" name ="no_due" class="w3-button w3-teal w3-round-large">SUBMIT NO DUE REQUEST</button><br><br>
+    </form>
+    <p><button class="w3-button w3-teal w3-round-large"><a href="caution.html">CAUTION-DEPOSIT</a></button></p><br><br>
+    <p><button class="w3-button w3-teal w3-round-large"><a href="other_requests.php">OTHER REQUEST</a></button></p><br><br>
+  </div>
 
-<div class="w3-container" ALIGN="CENTER">
-<h2 align="center" font-family="san-serif"><b>Select your choice of request</b></h2><br><br>
-  <p><button class="w3-button w3-teal w3-round-large"><a href="nodue.html">NO-DUE</a></button></p><br><br>
-  
-  <p><button class="w3-button w3-teal w3-round-large"><a href="caution.html">CAUTION-DEPOSIT</a></button></p><br><br>
-  <p><button class="w3-button w3-teal w3-round-large"><a href="other_requests.php">OTHER REQUEST</a></button></p><br><br>
-</div>
-
-<br>
+  <br>
 
 </body>
 </html>

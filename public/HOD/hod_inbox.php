@@ -5,7 +5,25 @@
     require_once("../../includes/functions.php"); 
     confirm_logged_in(2);
 ?>
+<?php
+  global $conn;
+  # User ID
+  $userid = $_SESSION["user_id"];
 
+  //Query
+  $sql = "SELECT department FROM hod_info WHERE user_id = '{$userid}' LIMIT 1";
+
+  # Executing query
+  $result = mysqli_query($conn, $sql);
+
+  if (mysqli_num_rows($result) > 0) {
+  # output data of each row
+    $row = mysqli_fetch_assoc($result);
+    $department = $row["department"];
+  } else {
+      echo "0 results";
+  }
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,8 +52,28 @@
       </div>
       <?php 
           global $conn;
+          global $department;
           $userid = $_SESSION["user_id"];
 
+          // Checking for No Due Requests
+
+          $sql = "SELECT * FROM `no_due_requests` WHERE `{$department}` = '0' ";
+          $result = mysqli_query($conn,$sql); 
+          if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)){
+              
+              $student = get_student_details($row["student_id"]);
+
+              print "<a style=\"text-decoration: none\" href=\"../HOD/nodue_request.php?request_no=".$row["request_no"]."\">
+                      <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" >
+                      ".$student["name"]."<br>".get_department_name($student["course"])." , ".$student["semester"]."
+                      <br>No Due Request
+                      <br>
+                      </div>
+                    </a>"; 
+            }
+          } 
+          // End of No Due Requests
           $sql = "SELECT * FROM `pending_requests_other` WHERE `hod_id` = '{$userid}' and `current_level` = 1 and `status` = 0 ";
           $result = mysqli_query($conn,$sql);
 

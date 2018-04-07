@@ -9,6 +9,7 @@
 		unset($_SESSION["name"]);
 		unset($_SESSION["image_path"]);
 		unset($_SESSION["user_type"]);
+		unset($_SESSION["message"]);
 		redirect_to("../common/login.php");
 ?>
 

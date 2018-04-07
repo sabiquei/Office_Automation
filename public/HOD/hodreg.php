@@ -1,5 +1,12 @@
+<?php
+    ob_start();
+    require_once("../../includes/connect.php");
+    require_once("../../includes/functions.php");   
+?>
 <!DOCTYPE html>
 <html>
+<head>
+    <title>HOD Registration</title>
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box}
@@ -132,9 +139,57 @@ button:hover {
     }
 }
 </style>
+</head>
 <body>
+<?php
+    if(isset($_POST["submit"])){
+        # Retreving data from form
+        # user_input_validation() is used to check whether user input is safe or not
+        $name           = user_input_validation($_REQUEST["name"]);
+        $department     = $_REQUEST["department"];
+        $mobile         = user_input_validation($_REQUEST["mobile"]);
+        $email          = user_input_validation($_REQUEST["email"]);
+        $userid         = user_input_validation($_REQUEST["user_id"]);
+        $password       = user_input_validation( $_REQUEST["password"]);
 
-<form action="/action_page.php" style="border:1px solid #ccc">
+        # Convert password into hash value.
+        $password = convert_password($password);
+
+        # Accessing connection variable form connect.php
+        global $conn;
+        if(check_existing_username($userid,3)){
+            # Command to insert into table student_info
+            $sql = "INSERT INTO hod_info ( ";
+            
+            $sql.= "name,";
+            $sql.= "department,";
+            $sql.= "mobile,";
+            $sql.= "email,";
+            $sql.= "user_id,";
+            $sql.= "password ";
+
+            $sql.= ") VALUES ( ";
+
+            $sql.= " '{$name}' , ";
+            $sql.= " '{$department}' , ";
+            $sql.= " '{$mobile}' , ";
+            $sql.= " '{$email}' , ";
+            $sql.= " '{$userid}' , ";
+            $sql.= " '{$password}' ";
+            $sql.= ")";
+
+            if (mysqli_query($conn, $sql)) {
+                echo "New record created successfully";
+                redirect_to("../common/login.php");
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
+        } else {
+            print "User ID already exists";
+        }
+    }
+?>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method = "post" enctype="multipart/form-data" style="border:1px solid #ccc">
   <div class="container"align="left">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
@@ -144,58 +199,42 @@ button:hover {
     <input type="text" placeholder="Enter Name" name="name" required>
 	<br><br>
 	
-	<label for="designation"><b>Designation</b></label>
-    <input type="text" placeholder="Designation" name="designation" required>
-	<br><br>
-    
-	 <label for="semester"><b>Semester</b></label>
-    <input type="text" placeholder="semester" name="semester" required>
-	<br><br>
-	
-	<label for="dept"><b>Department</b></label>
-    <input type="text" placeholder="Dept" name="dept" required>
-	<br><br>
+	<label for="department"><b>Course</b></label><br>
+    <select name="department">
+      <option value="415">Computer Science and Engineering</option>
+      <option value="416">Information and Technology</option>
+      <option value="403">Mechanical Engineering</option>
+      <option value="401">Civil Engineering</option>
+      <option value="412">Electronics and Communication Engineering</option>
+      <option value="411">Electrical and Electronics Engineering</option>
+    </select><br><br>
 	
 	<label for="ph"><b>Phone Number</b></label>
-    <input type="text" placeholder="phonenumber" name="ph" required>
+    <input type="text" placeholder="Enter Mobile Number" name="mobile" required>
 	
 	 <label for="email"><b>Email</b></label>
     <input type="text" placeholder="Enter Email" name="email" required>
 	<br><br>
 	
-	 
-	
-	<h5 >UserID and Password</h5>
-	<br><br>
-	<label for="UserID"><b>UserID</b></label>
-    <input type="password" placeholder="Enter UserID" name="UserID" required>
+	<label for="UserID"><b>User ID</b></label>
+    <input type="text" placeholder="Enter User ID" name="user_id" required>
 	<br><br>
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-	<br><br>
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+    <input type="password" placeholder="Enter Password" name="password" required>
 	<br><br>
 	
-	<label for="Photo"><b>Attach a photo</b></label>
-	<input type="file" name="filetoupload" id="filetoupload"><br><br>
-	
-	<label for="Signature"><b>Attach a signature</b></label> 
-	<input type="file" name="filupload" id="filupload">
-	
-	<br><br>
-	<b>DECLARATION</b>
-	<input type="checkbox" name="declrtn" >I do hereby declare that the information is correct and complete to the best of my knowledge and belief<br><br>
-    
-    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-	<br><br>
-    <div class="clearfix" align="center">
-      <button type="button" class="cancelbtn" align="center">Cancel</button><br><br>
-      <button type="submit" class="signupbtn" align="center">Sign Up</button>
+	<!-- <label for="Photo"><b>Attach a photo</b></label>
+	<input type="file" name="filetoupload" id="filetoupload"><br><br> -->
+
+      <button type="reset" class="cancelbtn" align="center">Cancel</button><br><br>
+      <button type="submit" name="submit" class="signupbtn" align="center">Sign Up</button>
     </div>
   </div>
 </form>
 
 </body>
 </html>
+<?php ob_end_flush(); 
+        mysqli_close($conn);
+?>
 

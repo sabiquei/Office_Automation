@@ -47,7 +47,23 @@
           $userid = $_SESSION["user_id"];
 
           if($_SESSION["user_type"] == 4){
+            
+            // Checking for No due requests
+            $sql = "SELECT `request_no` FROM `no_due_requests` WHERE `student_id` = '{$userid}' ";
+            $result = mysqli_query($conn,$sql); 
+            if (mysqli_num_rows($result) > 0) {
+              $row = mysqli_fetch_assoc($result);
+              print "<a style=\"text-decoration: none\" href=\"../student/nodue_request.php\">
+                      <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" >
+                      <br><br>
+                      No Due Status
+                      <br><br>
+                      </div>
+                    </a>";
+              } 
+            // Other Requests
             $sql = "SELECT * FROM `pending_requests_other` WHERE `student_id` = '{$userid}' ";
+
           } elseif($_SESSION["user_type"] == 3){
             $sql = "SELECT * FROM `pending_requests_other` WHERE `tutor_id` = '{$userid}' AND (`current_level` > 0 OR (`current_level` = 0 AND `status` = 2))";
           } elseif ($_SESSION["user_type"] == 2) {
