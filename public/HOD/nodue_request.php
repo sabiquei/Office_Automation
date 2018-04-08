@@ -80,7 +80,7 @@
 	global $request_no;
 	global $department;
 	$department_remarks = $department."_remarks"; 
-	$remarks = $_POST["remarks"];
+	$remarks =user_input_validation($_POST["remarks"]);
 	if($_POST["submit"] == "Accept"){
 		$sql = "UPDATE `no_due_requests` SET `{$department}` = 1 , `{$department_remarks}` = '{$remarks}' WHERE `request_no` = '{$request_no}' ";
 		if(mysqli_query($conn, $sql)) {
