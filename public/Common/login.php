@@ -9,7 +9,75 @@
   <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../stylesheets/login.css">
+<style type="text/css">
+    body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+input[type=text], input[type=password] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: teal;
+    color: white;
+    padding: 14px 200px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.createbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: teal;
+}
+.createbtn{
+        width=20%;
+        float=center;
+      }
+   
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 10%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+  
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
   </head>
   <body>
     <h2 align="center">Login</h2>
@@ -42,7 +110,7 @@
             <option value="2">HOD</option>
             <option value="1">Principal</option>
           </select><br><br>  
-          <button type="submit" name ="create">Create an Account</button> <br><br>
+          <button type="submit" name ="create" class="createbtn">Create an Account </button><br><br>
       </div>
     </form>
 
@@ -52,8 +120,8 @@
           $password = user_input_validation($_POST["password"]);
           $password = convert_password($password);
           $user_type = $_POST["user_type"];
-          print $userid;
-          print $user_type;
+         /* print $userid;
+          print $user_type;*/
           // Student Login
           if($user_type == 4) {
             $sql = "SELECT password,name,image_path from student_info WHERE user_id = '{$userid}' LIMIT 1 ";

@@ -289,7 +289,7 @@
     <input type="date" placeholder="DOB" name="dob" required><br><br>
 	<br><br>
 	
-	 <label for="gender"><b>Gender</b></label>
+	<b>Gender</b>
     <input type="radio" name="sex" value="male">Male
     <input type="radio" name="sex" value="female">Female<br><br>
     

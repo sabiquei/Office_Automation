@@ -193,13 +193,20 @@ button:hover {
   <div class="container"align="left">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
-    <hr>
-	<h2> Personal Details</h2>
+
 	 <label for="name"><b>Name</b></label>
     <input type="text" placeholder="Enter Name" name="name" required>
 	<br><br>
+
+    <label for="designation"><b>Designation</b></label>&nbsp;&nbsp;
+    <select name="designation">
+      <option value="Tutor">Tutor</option>
+      <option value="AP">Assistant Professor</option>
+      <option value="Ass_P">Associate Professor</option>
+    </select><br><br>
+    <br><br>
 	
-	<label for="department"><b>Course</b></label><br>
+	<label for="department"><b>Course</b></label>&nbsp;&nbsp;
     <select name="department">
       <option value="415">Computer Science and Engineering</option>
       <option value="416">Information and Technology</option>
