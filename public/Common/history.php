@@ -47,20 +47,37 @@
           $userid = $_SESSION["user_id"];
 
           if($_SESSION["user_type"] == 4){
-            
-            // Checking for No due requests
-            $sql = "SELECT `request_no` FROM `no_due_requests` WHERE `student_id` = '{$userid}' ";
+
+            // Checking for Caution Deposit Requests for Students.
+            $sql = "SELECT * FROM `caution_deposit_requests` WHERE `student_id` = '{$userid}' ";
+            $result = mysqli_query($conn,$sql); 
+            if (mysqli_num_rows($result) > 0) {
+              $row = mysqli_fetch_assoc($result);
+
+              $color = get_status_color($row["status"]);
+
+              print "<a style=\"text-decoration: none\" href=\"../student/caution_deposit_request_status.php\">
+                      <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" style =\"color : ".$color.";\" >
+                      <hr>
+                      Caution Deposit Request Status
+                      <br>Submitted On : ".$row["date"]."<br>Remarks : ".$row["remarks"]."
+                      <hr>
+                      </div>
+                    </a>";
+            }
+            // Checking for No due requests for Students
+            $sql = "SELECT `request_no`,`date` FROM `no_due_requests` WHERE `student_id` = '{$userid}' ";
             $result = mysqli_query($conn,$sql); 
             if (mysqli_num_rows($result) > 0) {
               $row = mysqli_fetch_assoc($result);
               print "<a style=\"text-decoration: none\" href=\"../student/nodue_request.php\">
                       <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" >
-                      <br><br>
+                      <hr>
                       No Due Status
-                      <br><br>
+                      <br>Submitted On : ".$row["date"]."<br><hr>
                       </div>
                     </a>";
-              } 
+            } 
             // Other Requests
             $sql = "SELECT * FROM `pending_requests_other` WHERE `student_id` = '{$userid}' ";
 
@@ -88,7 +105,7 @@
                         <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" style =\"color : ".$color.";\" >"
                         .get_department_name($student_details["course"])." , ".$student_details["semester"]."
                         <br>".$student_details["name"]."<br>"
-                        .$row["subject"]."<br>".$row["date"]."<br>Status : ".get_status_remarks($row["status"],$row["current_level"])."
+                        .$row["subject"]."<br>Submitted On : ".$row["date"]."<br>Status : ".get_status_remarks($row["status"],$row["current_level"])."
                         </div>
                       </a>";
             }

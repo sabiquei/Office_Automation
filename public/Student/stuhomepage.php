@@ -52,13 +52,10 @@
 <p>Semester , Department : <?php global $row; print($row["semester"]." , ".get_department_name($row["course"]));  ?> </p><br>
 
 </div>
-<div class="w3-button w3-teal w3-block w3-round-xxlarge" align="center" style="width:50% padding:100%"><a href="request.php">Submit a Request </a><br>
+<div class="w3-button w3-teal w3-block w3-round-xxlarge" align="center" style="width:50% padding:100%"><a style="text-decoration: none"href="request.php">Submit a Request </a><br>
    
 </div>
 <br>
-
-<div class="w3-button w3-block w3-teal w3-round-xxlarge"style="width:50% padding:10%"" align="center"><a href="pending.html">Pending Request</a>
-</div>
 
 </body>
 </html>

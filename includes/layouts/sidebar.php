@@ -3,6 +3,7 @@
 
   <a href="../Student/stuhomepage.php" class="w3-bar-item w3-button">Home</a>
   <a href="../common/history.php" class="w3-bar-item w3-button">History</a>
+  <a href="../Student/request.php" class="w3-bar-item w3-button">Submit Request</a>
   <a href="../Student/profile.php" class="w3-bar-item w3-button">Profile</a>
   <a href="../Student/tuthod.php" class="w3-bar-item w3-button">Tutor & HOD</a>
   <a href="../common/logout.php" class="w3-bar-item w3-button">Logout</a>

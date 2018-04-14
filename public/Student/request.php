@@ -48,17 +48,27 @@ input[type=text]:focus, input[type=password]:focus {
     clear: both;
     display: table;
 }
+a {
+    text-decoration: none;
+}
 </style>
 
 <body>
     <?php 
+
+      // Submit No Due Request
       if(isset($_GET["no_due"])) {
         $sql = "INSERT INTO `no_due_requests` (`student_id`) VALUES ('{$_SESSION["user_id"]}') ";
         if (mysqli_query($conn, $sql)) {
           $_SESSION["message"] = "No due request send to all departments";
           } else {
-              $_SESSION["message"] = mysqli_error($conn);
-          }
+              $error = "Duplicate entry '".$_SESSION["user_id"]."' for key 'student_id'";
+              if(mysqli_error($conn) == $error){
+                  $_SESSION["message"] = "No Due request has already been submitted. Go to History for details";
+              }else {
+                  $_SESSION["message"] = mysqli_error($conn);
+              }
+          } 
     }
   ?>
 
@@ -80,10 +90,10 @@ input[type=text]:focus, input[type=password]:focus {
   <div class="w3-container" ALIGN="CENTER">
   <h2 align="center" font-family="san-serif"><b>Select your choice of request</b></h2><br><br>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method ="get">
-      <button type="submit" name ="no_due" class="w3-button w3-teal w3-round-large">SUBMIT NO DUE REQUEST</button><br><br>
+      <button type="submit" name ="no_due" class="w3-button w3-teal w3-round-large" style="width: 35%">Submit No Due Request</button><br><br>
     </form>
-    <p><button class="w3-button w3-teal w3-round-large"><a href="caution.html">CAUTION-DEPOSIT</a></button></p><br><br>
-    <p><button class="w3-button w3-teal w3-round-large"><a href="other_requests.php">OTHER REQUEST</a></button></p><br><br>
+    <button class="w3-button w3-teal w3-round-large" style="width: 35%"><a href="caution_deposit_request.php">Submit Request for Caution Deposit</a></button><br><br>
+    <button class="w3-button w3-teal w3-round-large" style="width: 35%"><a href="other_requests.php">Submit Other Requests</a></button><br>
   </div>
 
   <br>
