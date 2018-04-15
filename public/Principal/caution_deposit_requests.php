@@ -38,7 +38,6 @@
 <?php
 	//$request_no = $_GET['request_no'];
 	global $request_no;
-	print $request_no;
 	$sql = "SELECT * FROM `caution_deposit_requests` WHERE `request_no` = '{$request_no}' ";
             $result = mysqli_query($conn,$sql); 
             if (mysqli_num_rows($result) > 0) {

@@ -27,7 +27,7 @@
 	$request_no = $_GET['request_no'];
 
   	# Get request details and student details
-    $sql = "SELECT * FROM `no_due_requests` WHERE `request_no` = '{$request_no}' AND `{$department}` = '0' ";
+    $sql = "SELECT * FROM `no_due_requests` WHERE `request_no` = '{$request_no}' ";
 	$result = mysqli_query($conn,$sql); 
 	if (mysqli_num_rows($result) > 0) {
 		$row = mysqli_fetch_assoc($result);

@@ -18,9 +18,10 @@
 
     <style>
     html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif;}
-
     .w3-bar-block .w3-bar-item{padding:16px}
+    
     </style>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/tabs.css">
   </head>
   <body>
     <?php require_once("../../includes/layouts/principal_sidebar.php"); ?>
@@ -32,8 +33,13 @@
           <h1 align="center">INBOX </h1>
         </div>
       </div>
-      <?php
 
+      <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'other_requests')" id="defaultOpen" >Student Requests</button>
+        <button class="tablinks" onclick="openCity(event, 'caution_deposit_requests')">Caution Deposit Requests</button>
+      </div>
+
+      <?php
           // To Do
           // Add a new tab mechanism for No Due requests
           // Display them in that tab
@@ -42,6 +48,8 @@
           global $conn;
           $userid = $_SESSION["user_id"];
 
+          print"<div id=\"caution_deposit_requests\" class=\"tabcontent\">
+                <h3>Caution Deposit Requests</h3> ";
           // Caution Deposit requests.
           $sql = "SELECT * FROM `caution_deposit_requests` WHERE `status` = 0 ";
           $result = mysqli_query($conn,$sql); 
@@ -62,7 +70,13 @@
                     </div>
                   </a>";
           }
+          print "</div>";
           // Caution Deposit request ends here.
+
+          // Other Requests
+          print"<div id=\"other_requests\" class=\"tabcontent\">
+                <h3>Student Requests</h3> ";
+
           $sql = "SELECT * FROM `pending_requests_other` WHERE `current_level` = 2 and `status` = 0 ";
           $result = mysqli_query($conn,$sql);
 
@@ -83,8 +97,13 @@
           } else {
               echo "No requests";
           }
+          print "</div>";
+          // Other requests ends here.
       ?>
     </div>
+
+  <?php require_once("../../includes/tabs.php"); ?>
+
   </body>
 </html> 
 
