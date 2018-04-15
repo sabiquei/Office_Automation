@@ -150,21 +150,22 @@
             $sql = "SELECT * FROM `caution_deposit_requests` WHERE `status` != 0 ";
             $result = mysqli_query($conn,$sql); 
             if (mysqli_num_rows($result) > 0) {
-              $row = mysqli_fetch_assoc($result);
-              $student_details = get_student_details($row["student_id"]);
+              while($row = mysqli_fetch_assoc($result)) {
+                $student_details = get_student_details($row["student_id"]);
 
-              $color = get_status_color($row["status"]);
+                $color = get_status_color($row["status"]);
 
-              print "<a style=\"text-decoration: none\" href=\"../Principal/caution_deposit_requests.php?request_no=".$row['request_no']."\">
-                      <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" tyle =\"color : ".$color.";\" >
-                      Caution Deposit Request Status
-                      <br>"
-                      .get_department_name($student_details["course"]).
-                      " , ".$student_details["semester"]."
-                      <br>".$student_details["name"]."
-                      <br>Submitted On : ".$row["date"]."
-                      </div>
-                    </a>";
+                print "<a style=\"text-decoration: none\" href=\"../Principal/caution_deposit_requests.php?request_no=".$row['request_no']."\">
+                        <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" tyle =\"color : ".$color.";\" >
+                        Caution Deposit Request Status
+                        <br>"
+                        .get_department_name($student_details["course"]).
+                        " , ".$student_details["semester"]."
+                        <br>".$student_details["name"]."
+                        <br>Submitted On : ".$row["date"]."
+                        </div>
+                      </a>";
+                    }
             }
             print "</div>";
             // Caution Deposit request ends here.

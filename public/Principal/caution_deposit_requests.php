@@ -86,12 +86,23 @@
 								<textarea class="w3-input w3-border w3-margin-bottom" style="height:300px" name ="body" disabled> <?php global $row; echo $row["body"]; ?>  </textarea>
 							</div>
 							<label class="w3-text-teal"><b>Remarks</b></label>
-							<input class="w3-input w3-border w3-animate-input" type="text" style="width:50%" name ="remarks" placeholder = "Enter Remarks here.. Add Date for Collecting"  required>
+							<input class="w3-input w3-border w3-animate-input" type="text" style="width:50%" name ="remarks" placeholder = "Enter Remarks here.. Add Date for Collecting" 
+							<?php 
+								global $row;
+								if($row["status"] == 1){
+									print "value='".$row["remarks"]."'";
+								} 
+							?> required>
 
-							<input type ="submit" class="w3-button w3-right" onclick="document.getElementById('id01').style.display='none'" name="submit" value="Reject"> <i class="fa fa-paper-plane"></i>
+							<?php 
+								global $row;
+								if($row["status"] != 1){
 
-							<input type ="submit" class="w3-button w3-right" onclick="document.getElementById('id01').style.display='none'" name="submit" value="Accept"> <i class="fa fa-paper-plane"></i>
+							print '<input type ="submit" class="w3-button w3-right" onclick="document.getElementById(\'id01\').style.display=\'none\'" name="submit" value="Reject"> <i class="fa fa-paper-plane"></i>
 
+							<input type ="submit" class="w3-button w3-right" onclick="document.getElementById(\'id01\').style.display=\'none\'" name="submit" value="Accept"> <i class="fa fa-paper-plane"></i> ';
+							}
+							?>
 							<input class="w3-check" type="radio" checked disabled>
 				  			<label>Forward to Principal</label><br>
 				  		</div>
