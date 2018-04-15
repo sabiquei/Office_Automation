@@ -60,7 +60,7 @@
             $color = get_status_color($row["status"]);
 
             print "<a style=\"text-decoration: none\" href=\"../Principal/caution_deposit_requests.php?request_no=".$row['request_no']."\">
-                    <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" tyle =\"color : ".$color.";\" >
+                    <div class=\"w3-container w3-hover-light-gray w3-border-bottom test\" width=\"100%\" style =\"color : ".$color.";\" >
                     Caution Deposit Request Status
                     <br>"
                     .get_department_name($student_details["course"]).

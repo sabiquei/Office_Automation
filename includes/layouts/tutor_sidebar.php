@@ -3,6 +3,7 @@
       onclick="w3_close()">Close &times;</button>
       <a href="../Teacher/tutor_inbox.php" class="w3-bar-item w3-button">Inbox</a>
       <a href="../Teacher/tutor_home.php" class="w3-bar-item w3-button">Home</a>
+      <a href="../common/verify.php" class="w3-bar-item w3-button">Account Verification</a>
       <a href="../common/history.php" class="w3-bar-item w3-button">History</a>
       <a href="../common/logout.php" class="w3-bar-item w3-button">Logout</a>
 </div>

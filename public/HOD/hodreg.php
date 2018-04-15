@@ -200,9 +200,7 @@ button:hover {
 
     <label for="designation"><b>Designation</b></label>&nbsp;&nbsp;
     <select name="designation">
-      <option value="Tutor">Tutor</option>
-      <option value="AP">Assistant Professor</option>
-      <option value="Ass_P">Associate Professor</option>
+      <option value="Associate Professor">Associate Professor</option>
     </select><br><br>
     <br><br>
 	

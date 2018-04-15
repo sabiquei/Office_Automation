@@ -97,7 +97,7 @@ span.psw {
           <option value="3">Teacher</option>
           <option value="2">HOD</option>
           <option value="1">Principal</option>
-          <option value="0">Sytem Admin</option>
+          <!-- <option value="0">Sytem Admin</option> -->
         </select><br><br>  
         <button type="submit" name ="submit">Login</button> <br><br>
       </div>
@@ -124,20 +124,21 @@ span.psw {
           print $user_type;*/
           // Student Login
           if($user_type == 4) {
-            $sql = "SELECT password,name,image_path from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
+            $sql = "SELECT password,name,image_path,verified from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
             $homepage = "../Student/stuhomepage.php";
           } elseif ($user_type == 3) {
-            $sql = "SELECT password,name from tutor_info WHERE user_id = '{$userid}' LIMIT 1 ";
+            $sql = "SELECT password,name,verified from tutor_info WHERE user_id = '{$userid}' LIMIT 1 ";
             $homepage = "../Teacher/tutor_home.php";
           } elseif ($user_type == 2) { 
-            $sql = "SELECT password,name from hod_info WHERE user_id = '{$userid}' LIMIT 1 ";
+            $sql = "SELECT password,name,verified from hod_info WHERE user_id = '{$userid}' LIMIT 1 ";
             $homepage = "../HOD/hod_home.php";
           } elseif ($user_type == 1) {
-            $sql = "SELECT password,name from principal_info WHERE user_id = '{$userid}' LIMIT 1 ";
+            $sql = "SELECT password,name,verified from principal_info WHERE user_id = '{$userid}' LIMIT 1 ";
             $homepage = "../principal/home.php";
-          } /*elseif ($user_type == 0) {
-            $sql = "SELECT password,name,image_path from student_info WHERE user_id = '{$userid}' LIMIT 1 ";
-          } */
+          } elseif ($user_type == 0) {
+            $sql = "SELECT password,name from admin_info WHERE user_id = '{$userid}' LIMIT 1 ";
+            $homepage = "../Admin/admin_home.php";
+          }
 
           #Executing query
           $result = mysqli_query($conn, $sql);
@@ -146,11 +147,15 @@ span.psw {
             $row = mysqli_fetch_assoc($result);
 
             if($password == $row["password"]) {
-              $_SESSION["user_id"] = $userid;
-              $_SESSION["name"] = $row["name"];
-              $_SESSION["image_path"] = $row["image_path"];
-              $_SESSION["user_type"] = $user_type;
-              redirect_to($homepage);
+              if($row["verified"] == 1){
+                $_SESSION["user_id"] = $userid;
+                $_SESSION["name"] = $row["name"];
+                $_SESSION["image_path"] = $row["image_path"];
+                $_SESSION["user_type"] = $user_type;
+                redirect_to($homepage);
+              }else {
+                print "Account is not verified";
+              }
             } else {
               print " Invalid Password <br>";
             }
