@@ -39,6 +39,7 @@
 
     .w3-bar-block .w3-bar-item{padding:16px}
     </style>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/tabs.css">
   </head>
   <body>
     <?php require_once("../../includes/layouts/hod_sidebar.php"); ?>
@@ -50,12 +51,20 @@
           <h1 align="center">INBOX </h1>
         </div>
       </div>
+
+      <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'other_requests')" id="defaultOpen" >Student Requests</button>
+        <button class="tablinks" onclick="openCity(event, 'no_due_requests')">No Due Requests</button>
+      </div>
+      
       <?php 
           global $conn;
           global $department;
           $userid = $_SESSION["user_id"];
 
           // Checking for No Due Requests
+          print"<div id=\"no_due_requests\" class=\"tabcontent\">
+                <h3>No Due Requests</h3> ";
 
           $sql = "SELECT * FROM `no_due_requests` WHERE `{$department}` = '0' ";
           $result = mysqli_query($conn,$sql); 
@@ -72,8 +81,15 @@
                       </div>
                     </a>"; 
             }
+          } else {
+            print "No Requests.";
           } 
+          print "</div>";
           // End of No Due Requests
+
+          print"<div id=\"other_requests\" class=\"tabcontent\">
+                <h3>Student Requests</h3> ";
+
           $sql = "SELECT * FROM `pending_requests_other` WHERE `hod_id` = '{$userid}' and `current_level` = 1 and `status` = 0 ";
           $result = mysqli_query($conn,$sql);
 
@@ -94,8 +110,10 @@
           } else {
               echo "No requests";
           }
+          print "</div>";
       ?>
     </div>
+    <?php require_once("../../includes/tabs.php"); ?>
   </body>
 </html> 
 

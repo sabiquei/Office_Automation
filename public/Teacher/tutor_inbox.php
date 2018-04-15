@@ -21,6 +21,7 @@
 
     .w3-bar-block .w3-bar-item{padding:16px}
     </style>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/tabs.css">
   </head>
   <body>
     <?php require_once("../../includes/layouts/tutor_sidebar.php"); ?>
@@ -32,7 +33,14 @@
           <h1 align="center">INBOX </h1>
         </div>
       </div>
+      <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'other_requests')" id="defaultOpen" >Student Requests</button>
+      </div>
       <?php 
+
+          print"<div id=\"other_requests\" class=\"tabcontent\">
+                <h3>Student Requests</h3> ";
+
           global $conn;
           $userid = $_SESSION["user_id"];
 
@@ -56,8 +64,10 @@
           } else {
               echo "No requests";
           }
+          print"</div>";
       ?>
     </div>
+    <?php require_once("../../includes/tabs.php"); ?>
   </body>
 </html> 
 
