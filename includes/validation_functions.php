@@ -1,5 +1,5 @@
 <?php
-
+// Validation functions for using in validating user inputs - Currently not used in the project.
 $errors = array();
 
 function fieldname_as_text($fieldname) {

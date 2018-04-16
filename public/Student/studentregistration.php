@@ -154,21 +154,21 @@
         $dob            = user_input_validation($_REQUEST["dob"]);
         $gender         = user_input_validation($_REQUEST["sex"]);
         $father         = user_input_validation($_REQUEST["fname"]);
-        $f_occupation   = user_input_validation($_REQUEST["f_occupation"]);
+        #$f_occupation   = user_input_validation($_REQUEST["f_occupation"]);
         $mother         = user_input_validation($_REQUEST["mname"]);
-        $m_occupation   = user_input_validation($_REQUEST["m_occupation"]);
+        #$m_occupation   = user_input_validation($_REQUEST["m_occupation"]);
         $category       = user_input_validation($_REQUEST["category"]);
-        $blood          = user_input_validation($_REQUEST["bgroup"]);
+        #$blood          = user_input_validation($_REQUEST["bgroup"]);
         #$aadhar         = user_input_validation($_REQUEST["aadhar"]);
-        $housename      = user_input_validation($_REQUEST["hname"]);
+        #$housename      = user_input_validation($_REQUEST["hname"]);
         $place          = user_input_validation($_REQUEST["plc"]);
-        $postoffice     = user_input_validation($_REQUEST["post"]);
-        $district       = user_input_validation($_REQUEST["district"]);
+        #$postoffice     = user_input_validation($_REQUEST["post"]);
+        #$district       = user_input_validation($_REQUEST["district"]);
         $mobile         = user_input_validation($_REQUEST["mob"]);
         $email          = user_input_validation($_REQUEST["email"]);
-        $yoa            = user_input_validation($_REQUEST["yoa"]); #Year of Admission
+        #$yoa            = user_input_validation($_REQUEST["yoa"]); #Year of Admission
         $admission_no   = user_input_validation($_REQUEST["admno"]);
-        $reg_no         = user_input_validation($_REQUEST["register"]);
+        #$reg_no         = user_input_validation($_REQUEST["register"]);
         $course         = user_input_validation($_REQUEST["course"]);
         $semester       = user_input_validation($_REQUEST["semester"]);
         $userid         = user_input_validation($_REQUEST["UserID"]);
@@ -208,21 +208,21 @@
                 $sql.= "dob,";
                 $sql.= "sex,";
                 $sql.= "father,";
-                $sql.= "f_occupation,";
+                #$sql.= "f_occupation,";
                 $sql.= "mother,";
-                $sql.= "m_occupation,";
+                #$sql.= "m_occupation,";
                 $sql.= "category,";
-                $sql.= "blood_group,";
+                #$sql.= "blood_group,";
                 #$sql.= "aadhar,";
-                $sql.= "house_name,";
+                #$sql.= "house_name,";
                 $sql.= "place,";
-                $sql.= "post_office,";
-                $sql.= "district,";
+                #$sql.= "post_office,";
+                #$sql.= "district,";
                 $sql.= "mobile,";
                 $sql.= "email,";
-                $sql.= "yoa,";
+                #$sql.= "yoa,";
                 $sql.= "admission_no,";
-                $sql.= "register_no,";
+                #$sql.= "register_no,";
                 $sql.= "course,";
                 $sql.= "semester,";
                 $sql.= "user_id ,";
@@ -235,21 +235,21 @@
                 $sql.= " '{$dob}' , ";
                 $sql.= " '{$gender}' , ";
                 $sql.= " '{$father}' , ";
-                $sql.= " '{$f_occupation}' , ";
+                #$sql.= " '{$f_occupation}' , ";
                 $sql.= " '{$mother}' , ";
-                $sql.= " '{$m_occupation}' , ";
+                #$sql.= " '{$m_occupation}' , ";
                 $sql.= " '{$category}' , ";
-                $sql.= " '{$blood}' , ";
+                #$sql.= " '{$blood}' , ";
                 #$sql.= " '{$aadhar}' , ";
-                $sql.= " '{$housename}' , ";
+                #$sql.= " '{$housename}' , ";
                 $sql.= " '{$place}' , ";
-                $sql.= " '{$postoffice}' , ";
-                $sql.= " '{$district}' , ";
+                #$sql.= " '{$postoffice}' , ";
+                #$sql.= " '{$district}' , ";
                 $sql.= " '{$mobile}' , ";
                 $sql.= " '{$email}' , ";
-                $sql.= " '{$yoa}' , ";
+                #$sql.= " '{$yoa}' , ";
                 $sql.= " '{$admission_no}' , ";
-                $sql.= " '{$reg_no}' , ";
+                #$sql.= " '{$reg_no}' , ";
                 $sql.= " '{$course}' , ";
                 $sql.= " '{$semester}' , ";
                 $sql.= " '{$userid}' , ";
@@ -297,15 +297,15 @@
 	 <label for="fname"><b>Father's Name</b></label>
     <input type="text" placeholder="Father's Name" name="fname" required>
 	<br><br>
-	 <label for="occupation"><b>Occupation</b></label>
+	 <!-- <label for="occupation"><b>Occupation</b></label>
     <input type="text" placeholder="Occupation" name="f_occupation" required>
-	<br><br>
+	<br><br> -->
 	 <label for="mname"><b>Mother's Name</b></label>
     <input type="text" placeholder="Mother's Name" name="mname" required>
 	<br><br>
-	 <label for="occupation"><b>Occupation</b></label>
+	 <!-- <label for="occupation"><b>Occupation</b></label>
     <input type="text" placeholder="Occupation" name="m_occupation" required>
-	<br><br>
+	<br><br> -->
 	
 	Category:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" value="SC/ST">SC/ST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -313,9 +313,9 @@
 	<input type="radio" name="category" value="OEC">OEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="radio" name="category" value="General">General<br><br>
 	
-	 <label for="bgroup"><b>Blood Group</b></label>
+	 <!-- <label for="bgroup"><b>Blood Group</b></label>
     <input type="text" placeholder="Blood Group" name="bgroup" required>
-	<br><br>
+	<br><br> -->
 	 <!-- <label for="aadhar"><b>Aadhar Number</b></label>
     <input type="text" placeholder="Aadhar " name="aadhar" required>
 	<br><br> -->
@@ -324,18 +324,18 @@
     <h3 border: 1px solid #f1f1f1;
     margin-bottom: 25px;>Address Details</h3></hr>
 	<br><br>
-	<label for="hname"><b>House Name</b></label>
+	<!-- <label for="hname"><b>House Name</b></label>
     <input type="text" placeholder="House Name" name="hname" required>
-	<br><br>
+	<br><br> -->
 	<label for="plc"><b>Place</b></label>
     <input type="text" placeholder="Place" name="plc" required>
 	<br><br>
-	<label for="post"><b>Post Office</b></label>
+	<!-- <label for="post"><b>Post Office</b></label>
     <input type="text" placeholder="Post Office" name="post" required>
 	<br><br>
 	<label for="district"><b>District</b></label>
     <input type="text" placeholder="District" name="district" required>
-	<br><br>
+	<br><br> -->
 	<label for="mob"><b>Moblie Number</b></label>
     <input type="text" placeholder="Mobile Number" name="mob" required>
 	<br><br>
@@ -346,16 +346,16 @@
 	<hr>
 	<h4 font-size="98730px">Academic Details</h4></hr>
 	<br><br>
-	<label for="yoa"><b>Year of Admission</b></label>
+	<!-- <label for="yoa"><b>Year of Admission</b></label>
     <input type="text" placeholder="Year of Admission" name="yoa" required>
-	<br><br>
+	<br><br> -->
 	<label for="admno"><b>Admission No</b></label>
     <input type="text" placeholder="Admission No" name="admno" required>
 	<br><br>
-	<label for="register"><b>Register No</b></label>
+	<!-- <label for="register"><b>Register No</b></label>
     <input type="text" placeholder="Register No" name="register" required>
 	<br><br>
-	<!-- <label for="clsregister"><b>Class Register No</b></label>
+	<label for="clsregister"><b>Class Register No</b></label>
     <input type="text" placeholder="Class Register No" name="clsregister" required>
 	<br><br> -->
 
